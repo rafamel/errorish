@@ -45,3 +45,10 @@ export interface ICoreOptions extends INormalizeOptions {
    */
   Error?: IConstructor<Error>;
 }
+
+export interface IExceptionOptions extends ICoreOptions {
+  /**
+   * If `case` is passed, `thows` and `rejects` will only throw/reject when `true`, otherwise their response will be void.
+   */
+  case?: boolean;
+}
