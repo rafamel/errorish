@@ -9,7 +9,7 @@ export interface IConstructor<T> {
   prototype: T;
 }
 
-export interface ICoreOptions {
+export interface INormalizeOptions {
   /**
    * `message` to be used when normalizing errors that don't have one
    */
@@ -18,6 +18,12 @@ export interface ICoreOptions {
    * `name` to be used when normalizing errors that don't have one, if its constructor doesn't have one.
    */
   name?: string;
+}
+
+/**
+ * See `defaults` for more information on default values.
+ */
+export interface ICoreOptions extends INormalizeOptions {
   /**
    * Whether normalization should be applied by default when ensuring an error -see `ensure`.
    */
