@@ -1,21 +1,21 @@
 import ensure from './ensure';
-import { IExceptionOptions, IOfType } from './types';
+import { IExceptionOptions, ICoreOptions, IOfType } from './types';
 
 export default throws;
 
 function throws(
-  err: any,
-  options?: (IExceptionOptions & { case?: true | undefined }) | null,
+  error: any,
+  options: IExceptionOptions & { case: true },
   data?: IOfType<any>
 ): never;
 function throws(
-  err: any,
-  options?: (IExceptionOptions & { case: boolean | undefined }) | null,
+  error: any,
+  options: IExceptionOptions,
   data?: IOfType<any>
 ): void;
 function throws(
-  err: any,
-  options?: IExceptionOptions | null,
+  error: any,
+  options?: ICoreOptions | null,
   data?: IOfType<any>
 ): never;
 /**
@@ -27,7 +27,7 @@ function throws(
   data?: IOfType<any>
 ): void | never {
   const condition =
-    options && typeof options.case === 'boolean' ? options.case : true;
+    options && options.hasOwnProperty('case') ? options.case : true;
 
   if (condition) throw ensure(error, options, data);
 }

@@ -1,21 +1,21 @@
 import throws from './throws';
-import { IExceptionOptions, IOfType } from './types';
+import { IExceptionOptions, ICoreOptions, IOfType } from './types';
 
 export default rejects;
 
 function rejects(
-  err: any,
-  options?: (IExceptionOptions & { case?: true | undefined }) | null,
+  error: any,
+  options: IExceptionOptions & { case: true },
   data?: IOfType<any>
 ): Promise<never>;
 function rejects(
-  err: any,
-  options?: (IExceptionOptions & { case: boolean | undefined }) | null,
+  error: any,
+  options: IExceptionOptions,
   data?: IOfType<any>
 ): Promise<void>;
 function rejects(
-  err: any,
-  options?: IExceptionOptions | null,
+  error: any,
+  options?: ICoreOptions | null,
   data?: IOfType<any>
 ): Promise<never>;
 /**

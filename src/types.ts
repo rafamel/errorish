@@ -48,7 +48,7 @@ export interface ICoreOptions extends INormalizeOptions {
 
 export interface IExceptionOptions extends ICoreOptions {
   /**
-   * If `case` is passed, `thows` and `rejects` will only throw/reject when `true`, otherwise their response will be void.
+   * If `case` exists, `throws` and `rejects` will only throw/reject when `true`, otherwise their response will be void.
    */
   case?: boolean;
 }
