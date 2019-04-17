@@ -1,0 +1,41 @@
+import Errorish from '~/Errorish';
+
+test(`create`, () => {
+  const err = new Errorish();
+
+  expect(err).toBeInstanceOf(Error);
+  expect(err.data).toEqual({});
+  expect(err.source).toBeUndefined();
+  expect(err.name).toBe('Errorish');
+});
+test(`create w/ message`, () => {
+  const err = new Errorish('Foo bar');
+
+  expect(err).toHaveProperty('message', 'Foo bar');
+});
+test(`create w/ data`, () => {
+  const err = new Errorish(undefined, { bar: 'baz' });
+
+  expect(err).toHaveProperty('data', { bar: 'baz' });
+});
+test(`create w/ error`, () => {
+  const err = new Errorish(undefined, null, 10);
+
+  expect(err).toHaveProperty('source', 10);
+});
+test(`root is itself when source is not an error`, () => {
+  const err1 = new Errorish();
+  expect(err1.root).toBe(err1);
+
+  const err2 = new Errorish(undefined, null, {});
+  expect(err2.root).toBe(err2);
+});
+test(`root is source when it's an error`, () => {
+  const err1 = new Errorish();
+  const err2 = new Errorish(undefined, null, err1);
+  expect(err2.root).toBe(err1);
+
+  const err3 = new Error();
+  const err4 = new Errorish(undefined, null, err3);
+  expect(err4.root).toBe(err3);
+});
