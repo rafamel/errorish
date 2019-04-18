@@ -1,3 +1,4 @@
+export { default as scope } from './scope';
 export { default as ensure } from './ensure';
 export { default as throws } from './throws';
 export { default as rejects } from './rejects';

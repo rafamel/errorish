@@ -1,12 +1,36 @@
 import Errorish from './Errorish';
+import ensure from './ensure';
+import throws from './throws';
+import rejects from './rejects';
+import normalize from './normalize';
 
+/**
+ * An object with values of `T`.
+ */
 export interface IOfType<T> {
   [key: string]: T;
 }
 
+/**
+ * A constructor for `T`.
+ */
 export interface IConstructor<T> {
   new (...args: any[]): T;
   prototype: T;
+}
+
+/**
+ * See `scope`.
+ */
+export interface IScope {
+  /**
+   * Name of the scope, set on creation when calling `scope.get`. It will be `null` for the root scope.
+   */
+  name: string | null;
+  ensure: typeof ensure;
+  rejects: typeof rejects;
+  throws: typeof throws;
+  normalize: typeof normalize;
 }
 
 export interface INormalizeOptions {
@@ -37,7 +61,7 @@ export interface ICoreOptions extends INormalizeOptions {
    */
   allow?: string[];
   /**
-   * A `Errorish` inheriting class to instantiate errors with when ensuring an object is an error.
+   * An `Errorish` inheriting class to instantiate errors with when ensuring an object is an error.
    */
   Errorish?: IConstructor<Errorish<any>>;
   /**
