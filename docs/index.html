@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>errorish 0.0.0</title>
+	<title>errorish 0.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">errorish 0.0.0</a>
+					<a href="index.html" class="title">errorish 0.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -54,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> errorish 0.0.0</h1>
+			<h1> errorish 0.1.0</h1>
 		</div>
 	</div>
 </header>
@@ -76,6 +76,109 @@
 				<p>If you come to find it useful, consider <a href="https://github.com/rafamel/errorish">starring the project</a> and/or following <a href="https://github.com/rafamel">its author</a> to show your ❤️</p>
 				<h2 id="install">Install</h2>
 				<p><a href="https://www.npmjs.com/package/errorish"><code>npm install errorish</code></a></p>
+				<h2 id="use-cases">Use cases</h2>
+				<p>There are essentially three use cases for <code>errorish</code>:</p>
+				<ul>
+					<li><a href="#ensuring-any-is-an-error--otherwise-create-it">You need to make sure <em>any</em> object is actually an error, as expected.</a></li>
+					<li><a href="#normalizing-errors">You need to make sure an <em>Error</em> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties.</a></li>
+					<li><a href="#catching-and-throwing-errors-to-be-made-public">You want to catch errors and throw a different <em>Error</em>:</a><ul>
+							<li>with a different message and specific data that might be made public,</li>
+							<li>while preserving information about the original exception that caused your program to fail,</li>
+							<li>on different levels of the call stack, but keeping only the first one of its kind throwed.</li>
+						</ul>
+					</li>
+				</ul>
+				<h2 id="documentation">Documentation</h2>
+				<p>These are all of <code>errorish</code>&#39;s functions -<a href="https://rafamel.github.io/errorish/globals.html">see docs:</a></p>
+				<ul>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> ensures <code>any</code> is an <code>Error</code>, otherwise creating one -optionally, it can also have a normalization step, which is <a href="https://rafamel.github.io/errorish/globals.html#defaults">enabled by default.</a></li>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#normalize"><code>normalize</code></a> ensures an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties -filling them if they&#39;re not defined.</li>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> parses a <code>help</code> string and returns an object with options, aliases, arguments, and descriptions.</li>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> parses a <code>help</code> string and returns an object with options, aliases, arguments, and descriptions.</li>
+				</ul>
+				<p><a href="https://rafamel.github.io/errorish/interfaces/icoreoptions.html">Options</a> can be passed directly to these functions, though they will be merged in all cases with the <a href="https://rafamel.github.io/errorish/globals.html#defaults">defaults</a> -you can use <a href="https://rafamel.github.io/errorish/globals.html#scope"><code>scope.set</code></a> to set these.</p>
+				<p>Additionally, you might want to create particular <a href="https://rafamel.github.io/errorish/globals.html#scope"><code>scopes</code> with a different set of default options</a> depending on your use case.</p>
+				<h2 id="usage">Usage</h2>
+				<h3 id="ensuring-any-is-an-error-otherwise-create-it">Ensuring <code>any</code> is an error -otherwise create it</h3>
+				<h4 id="return-an-error-from-any-error-ish">Return an error from any error-<em>ish</em></h4>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+ensure(<span class="hljs-built_in">Error</span>(<span class="hljs-string">'Foo bar'</span>)); <span class="hljs-comment">// Error: Foo bar</span>
+
+ensure(<span class="hljs-string">'Foo bar'</span>); <span class="hljs-comment">// Errorish: Foo bar</span>
+ensure({ <span class="hljs-attr">message</span>: <span class="hljs-string">'Foo bar'</span> }); <span class="hljs-comment">// Errorish: Foo bar</span>
+
+<span class="hljs-comment">// As this is a number, it will use the default message</span>
+ensure(<span class="hljs-number">10</span>); <span class="hljs-comment">// Errorish: An error occurred</span>
+<span class="hljs-comment">// We can also allow numbers -or any other type- to be stringified</span>
+ensure(<span class="hljs-number">10</span>, { <span class="hljs-attr">allow</span>: [<span class="hljs-string">'string'</span>, <span class="hljs-string">'number'</span>] }); <span class="hljs-comment">// Errorish: 10</span>
+
+<span class="hljs-comment">// Errors will always preserve the original source</span>
+ensure(<span class="hljs-number">10</span>).source; <span class="hljs-comment">// 10</span>
+
+<span class="hljs-comment">// Additionally, we can pass some data to errors</span>
+ensure(<span class="hljs-number">10</span>, <span class="hljs-literal">null</span>, { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> }).data; <span class="hljs-comment">// { foo: 'bar' }</span></code></pre>
+				<h4 id="throw-or-reject-with-an-error-ish">Throw or reject with an error-<em>ish</em></h4>
+				<p><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> and <a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> run <a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> over your error-<em>ish</em> and throw or reject with it -these are just convenience functions over <code>ensure</code>:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { rejects } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(rejects) <span class="hljs-comment">// Reject&lt;Errorish: An error occurred&gt;</span>
+
+<span class="hljs-comment">// Options for `rejects` and `throws` also take a `case` field which,</span>
+<span class="hljs-comment">// if false, will make them to have a void response</span>
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> rejects(err, { <span class="hljs-attr">case</span>: <span class="hljs-literal">false</span> })); <span class="hljs-comment">// Resolve&lt;undefined&gt;</span></code></pre>
+				<h3 id="normalizing-errors">Normalizing errors</h3>
+				<p>Normalization is performed by default by <a href="https://rafamel.github.io/errorish/globals.html#throws"><code>ensure</code>,</a> but it can also be run independently:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { normalize } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+normalize(<span class="hljs-built_in">Error</span>()); <span class="hljs-comment">// Error: An error occurred</span>
+normalize(<span class="hljs-built_in">Error</span>(), { <span class="hljs-attr">message</span>: <span class="hljs-string">'Foo bar'</span> }); <span class="hljs-comment">// Error: Foo bar</span></code></pre>
+				<h3 id="catching-and-throwing-errors-to-be-made-public">Catching and throwing errors to be made public</h3>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Errorish, scope } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+<span class="hljs-comment">// As we might want to preserve the defaults for the root scope,</span>
+<span class="hljs-comment">// we'll create a new scope we'll name `ish`.</span>
+<span class="hljs-comment">// For that scope, we'll set Errorish as the class errors</span>
+<span class="hljs-comment">// will be ensured against, so even when an actual `Error` is passed,</span>
+<span class="hljs-comment">// if not an `Errorish`, a new one will be created.</span>
+<span class="hljs-keyword">const</span> ish = scope.set(<span class="hljs-string">'ish'</span>, { <span class="hljs-attr">Error</span>: Errorish, <span class="hljs-attr">allow</span>: [] });
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">authorize</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Error with details I'd rather not expose`</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    authorize();
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-comment">// As an `Error` is not an instance of `Errorish`, one will be</span>
+    <span class="hljs-comment">// created with message `Server failed running your example`</span>
+    <span class="hljs-comment">// and data `{ code: 500 }`</span>
+    <span class="hljs-keyword">throw</span> ish.ensure(
+      err,
+      { <span class="hljs-attr">message</span>: <span class="hljs-string">`Authorization for example failed`</span> },
+      { <span class="hljs-attr">code</span>: <span class="hljs-number">401</span> }
+    );
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">server</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    example();
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-comment">// As example already throwed an `Errorish`, the same one will be</span>
+    <span class="hljs-comment">// preserved, ignoring the more general-purpose message and code</span>
+    <span class="hljs-keyword">throw</span> ish.ensure(err, { <span class="hljs-attr">message</span>: <span class="hljs-string">'Server failed'</span> }, { <span class="hljs-attr">code</span>: <span class="hljs-number">500</span> });
+  }
+}
+
+<span class="hljs-keyword">try</span> {
+  server();
+} <span class="hljs-keyword">catch</span> (e) {
+  <span class="hljs-built_in">console</span>.log(e.message); <span class="hljs-comment">// Authorization for example failed</span>
+  <span class="hljs-built_in">console</span>.log(e.data); <span class="hljs-comment">// { code: 401 }</span>
+  <span class="hljs-built_in">console</span>.log(e.source); <span class="hljs-comment">// Error: Error with details I'd rather not expose</span>
+}</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -109,7 +212,7 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iscope.html" class="tsd-kind-icon">IScope</a>
 					</li>
-					<li class=" tsd-kind-function">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#ensure" class="tsd-kind-icon">ensure</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
