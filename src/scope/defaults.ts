@@ -6,7 +6,7 @@ import { ICoreOptions } from '~/types';
  */
 const defaults: Required<ICoreOptions> = {
   name: 'Error',
-  message: 'An error ocurred',
+  message: 'An error occurred',
   Errorish: Errorish,
   normalize: true,
   capture: true,

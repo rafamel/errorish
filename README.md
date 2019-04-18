@@ -87,7 +87,7 @@ Normalization is performed by default by [`ensure`,](https://rafamel.github.io/e
 ```javascript
 import { normalize } from 'errorish';
 
-normalize(Error()); // Error: An error ocurrred
+normalize(Error()); // Error: An error occurred
 normalize(Error(), { message: 'Foo bar' }); // Error: Foo bar
 ```
 
@@ -98,7 +98,7 @@ import { Errorish, scope } from 'errorish';
 
 // As we might want to preserve the defaults for the root scope,
 // we'll create a new scope we'll name `api`.
-// For that scope, we'll set Errorish as the class errors 
+// For that scope, we'll set Errorish as the class errors
 // will be ensured against, so even when an actual `Error` is passed,
 // if not an `Errorish`, a new one will be created.
 scope.set('api', { Error: Errorish, allow: [] });

@@ -68,7 +68,7 @@ describe(`instantiates`, () => {
     expect(res).toBeInstanceOf(Foo);
     expect(res).toHaveProperty('data', {});
     expect(res).toHaveProperty('source', 10);
-    expect(res).toMatchInlineSnapshot(`[Errorish: An error ocurred]`);
+    expect(res).toMatchInlineSnapshot(`[Errorish: An error occurred]`);
   });
   test(`instantiantes options.Errorish`, () => {
     const err = 10;
@@ -78,18 +78,18 @@ describe(`instantiates`, () => {
     expect(res).toBeInstanceOf(Foo);
     expect(res).toHaveProperty('data', { foo: 'bar' });
     expect(res).toHaveProperty('source', 10);
-    expect(res).toMatchInlineSnapshot(`[Errorish: An error ocurred]`);
+    expect(res).toMatchInlineSnapshot(`[Errorish: An error occurred]`);
   });
   test(`captures stack trace on options.capture`, () => {
     const err = 10;
     const opts = { ...defaults, capture: true };
     const res = trunk(err, opts);
-    expect(res.stack).toBe('Errorish: An error ocurred');
+    expect(res.stack).toBe('Errorish: An error occurred');
   });
   test(`doesn't capture stack trace on !options.capture`, () => {
     const err = 10;
     const opts = { ...defaults, capture: false };
     const res = trunk(err, opts);
-    expect(res.stack).not.toBe('Errorish: An error ocurred');
+    expect(res.stack).not.toBe('Errorish: An error occurred');
   });
 });

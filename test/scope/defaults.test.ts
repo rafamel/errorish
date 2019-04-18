@@ -9,7 +9,7 @@ test(`are defaults`, () => {
         "string",
       ],
       "capture": true,
-      "message": "An error ocurred",
+      "message": "An error occurred",
       "name": "Error",
       "normalize": true,
     }
