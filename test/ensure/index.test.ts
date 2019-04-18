@@ -70,3 +70,9 @@ test(`calls trunk w/ data`, () => {
   expect(mocks.trunk.mock.calls[0][1]).toEqual({ ...defaults, ...opts });
   expect(mocks.trunk.mock.calls[0][2]).toEqual(data);
 });
+test(`doesn't mutate defaults`, () => {
+  ensure(10, { message: 'Foo bar baz', name: 'Foo' });
+
+  expect(defaults.message).not.toBe('Foo bar baz');
+  expect(defaults.name).not.toBe('Foo');
+});

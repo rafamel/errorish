@@ -8,7 +8,7 @@ export default function normalize<T extends Error>(
   error: T,
   options?: INormalizeOptions
 ): T & { stack: string } {
-  const opts = Object.assign(defaults, options);
+  const opts = Object.assign({}, defaults, options);
   if (!error.name) {
     error.name = (error.constructor && error.constructor.name) || opts.name;
   }

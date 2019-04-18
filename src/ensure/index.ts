@@ -8,7 +8,7 @@ export default function ensure(
   options?: ICoreOptions | null,
   data?: IOfType<any>
 ): Error {
-  const opts = Object.assign(defaults, options);
+  const opts = Object.assign({}, defaults, options);
 
   return opts.normalize
     ? normalize(trunk(error, opts, data), opts)

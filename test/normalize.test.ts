@@ -52,3 +52,9 @@ describe(`stack`, () => {
     expect(normalize(err)).not.toHaveProperty('stack', 'Error: message');
   });
 });
+describe(`options`, () => {
+  test(`doesn't mutate defaults`, () => {
+    normalize(Error(), { message: 'Foo bar baz' });
+    expect(defaults.message).not.toBe('Foo bar baz');
+  });
+});
