@@ -44,9 +44,9 @@ const scope = {
     return scopes[name];
   },
   /**
-   * Sets default options for a scope, taking the name of the scope as the first argument, and the `ICoreOptions` options as the second. If no name is passed and a single `ICoreOptions` argument is in its place, it will set the defaults for the root scope.
+   * Sets default options for a scope, taking the name of the scope as the first argument, and the `ICoreOptions` options as the second. If no name is passed and a single `ICoreOptions` argument is in its place, it will set the defaults for the root scope. It will also return the scope.
    */
-  set(...args: [string, ICoreOptions] | [ICoreOptions]): void {
+  set(...args: [string, ICoreOptions] | [ICoreOptions]): IScope {
     const name = args.find((x) => typeof x === 'string') as string | undefined;
     const options = args.find((x) => typeof x === 'object') as ICoreOptions;
 
@@ -55,6 +55,8 @@ const scope = {
       if (!values.hasOwnProperty(name)) values[name] = {};
       Object.assign(values[name], options);
     }
+
+    return scope.get(name);
   }
 };
 

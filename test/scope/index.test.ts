@@ -101,7 +101,7 @@ describe(`set`, () => {
     const str = 'Foo bar baz';
     expect(defaults.message).not.toBe(str);
 
-    expect(scope.set({ message: str })).toBeUndefined();
+    expect(scope.set({ message: str })).toBe(scope.get());
     expect(defaults.message).toBe(str);
   });
   test(`sets options`, () => {
@@ -109,7 +109,7 @@ describe(`set`, () => {
 
     expect(values.foo).not.toBeUndefined();
     expect(values.foo.message).not.toBe(str);
-    expect(scope.set('foo', { message: str }));
+    expect(scope.set('foo', { message: str })).toBe(scope.get('foo'));
     expect(values.foo).toEqual({ message: str });
   });
   test(`creates values scope`, () => {
@@ -118,7 +118,7 @@ describe(`set`, () => {
     expect(scopes.baz).toBeUndefined();
     expect(values.baz).toBeUndefined();
 
-    expect(scope.set('baz', { message: str })).toBeUndefined();
+    expect(scope.set('baz', { message: str })).toBe(scope.get('baz'));
     expect(values.baz).toEqual({ message: str });
 
     const baz = scope.get('baz');
