@@ -97,12 +97,11 @@ normalize(Error(), { message: 'Foo bar' }); // Error: Foo bar
 import { Errorish, scope } from 'errorish';
 
 // As we might want to preserve the defaults for the root scope,
-// we'll create a new scope we'll name `api`.
+// we'll create a new scope we'll name `ish`.
 // For that scope, we'll set Errorish as the class errors
 // will be ensured against, so even when an actual `Error` is passed,
 // if not an `Errorish`, a new one will be created.
-scope.set('api', { Error: Errorish, allow: [] });
-const ish = scope.get('api');
+const ish = scope.set('ish', { Error: Errorish, allow: [] });
 
 function authorize() {
   throw Error(`Error with details I'd rather not expose`);
