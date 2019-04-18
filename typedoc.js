@@ -14,5 +14,5 @@ module.exports = {
   excludePrivate: true,
   excludeNotExported: false,
   readme: path.join(project.get('paths.root'), 'README.md'),
-  exclude: ['**/__mocks__/**/*']
+  exclude: ['**/__mocks__/**/*', '**/scope/values*', '**/ensure/!(index)*']
 };
