@@ -1,4 +1,4 @@
-import throws from './throws';
+import ensure from './ensure';
 import { IExceptionOptions, ICoreOptions, IOfType } from './types';
 
 export default rejects;
@@ -26,5 +26,8 @@ async function rejects(
   options?: IExceptionOptions | null,
   data?: IOfType<any>
 ): Promise<void | never> {
-  return throws(error, options, data);
+  const condition =
+    options && options.hasOwnProperty('case') ? options.case : true;
+
+  if (condition) throw ensure(error, options, data);
 }
