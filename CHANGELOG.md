@@ -1,4 +1,25 @@
-# 0.1.0 (2019-04-18)
+# [0.2.0](https://github.com/rafamel/errorish/compare/v0.1.0...v0.2.0) (2019-04-21)
+
+
+### Code Refactoring
+
+* **types, rejects:** renames IExceptionOptions to IRejectionOptions ([770ccd5](https://github.com/rafamel/errorish/commit/770ccd5))
+
+
+### Features
+
+* **throws:** throws now takes a function instead of an error ([eac3b46](https://github.com/rafamel/errorish/commit/eac3b46))
+
+
+### BREAKING CHANGES
+
+* **types, rejects:** IExceptionOptions is now IRejectionOptions
+* **throws:** throws now takes a function instead of an error; it will ensure and throw any error
+thrown by that function, otherwise returning its value.
+
+
+
+# [0.1.0](https://github.com/rafamel/errorish/compare/d68f3a7...v0.1.0) (2019-04-18)
 
 
 ### Bug Fixes

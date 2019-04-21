@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>errorish 0.1.0</title>
+	<title>errorish 0.2.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">errorish 0.1.0</a>
+					<a href="index.html" class="title">errorish 0.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -54,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> errorish 0.1.0</h1>
+			<h1> errorish 0.2.0</h1>
 		</div>
 	</div>
 </header>
@@ -71,9 +71,9 @@
 					<a href="https://github.com/rafamel/errorish/blob/master/LICENSE"><img src="https://img.shields.io/github/license/rafamel/errorish.svg" alt="License"></a>
 				<a href="https://www.npmjs.com/package/errorish"><img src="https://img.shields.io/npm/types/errorish.svg" alt="Types"></a></p>
 				<blockquote>
-					<p>For those times you have an error-<em>ish</em> but what you really want is an <em>Error</em></p>
+					<p>For those times you have an error-<em>ish</em> but what you really want is an <em>Error.</em></p>
 				</blockquote>
-				<p>If you come to find it useful, consider <a href="https://github.com/rafamel/errorish">starring the project</a> and/or following <a href="https://github.com/rafamel">its author</a> to show your ❤️</p>
+				<p>If you find it useful, consider <a href="https://github.com/rafamel/errorish">starring the project</a> 💪 and/or following <a href="https://github.com/rafamel">its author</a> ❤️ -there&#39;s more on the way!</p>
 				<h2 id="install">Install</h2>
 				<p><a href="https://www.npmjs.com/package/errorish"><code>npm install errorish</code></a></p>
 				<h2 id="use-cases">Use cases</h2>
@@ -93,8 +93,8 @@
 				<ul>
 					<li><a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> ensures <code>any</code> is an <code>Error</code>, otherwise creating one -optionally, it can also have a normalization step, which is <a href="https://rafamel.github.io/errorish/globals.html#defaults">enabled by default.</a></li>
 					<li><a href="https://rafamel.github.io/errorish/globals.html#normalize"><code>normalize</code></a> ensures an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties -filling them if they&#39;re not defined.</li>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> parses a <code>help</code> string and returns an object with options, aliases, arguments, and descriptions.</li>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> parses a <code>help</code> string and returns an object with options, aliases, arguments, and descriptions.</li>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> returns a promise rejection with an error, having called <code>ensure</code> on it.</li>
+					<li><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> takes a function and returns its value if it doesn&#39;t throw; otherwise, it will call <code>ensure</code> on the thrown error and throw it.</li>
 				</ul>
 				<p><a href="https://rafamel.github.io/errorish/interfaces/icoreoptions.html">Options</a> can be passed directly to these functions, though they will be merged in all cases with the <a href="https://rafamel.github.io/errorish/globals.html#defaults">defaults</a> -you can use <a href="https://rafamel.github.io/errorish/globals.html#scope"><code>scope.set</code></a> to set these.</p>
 				<p>Additionally, you might want to create particular <a href="https://rafamel.github.io/errorish/globals.html#scope"><code>scopes</code> with a different set of default options</a> depending on your use case.</p>
@@ -120,13 +120,26 @@ ensure(<span class="hljs-number">10</span>).source; <span class="hljs-comment">/
 ensure(<span class="hljs-number">10</span>, <span class="hljs-literal">null</span>, { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> }).data; <span class="hljs-comment">// { foo: 'bar' }</span></code></pre>
 				<h4 id="throw-or-reject-with-an-error-ish">Throw or reject with an error-<em>ish</em></h4>
 				<p><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> and <a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> run <a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> over your error-<em>ish</em> and throw or reject with it -these are just convenience functions over <code>ensure</code>:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { rejects } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { rejects, throws, ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
 
+<span class="hljs-comment">/* rejects */</span>
 <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(rejects) <span class="hljs-comment">// Reject&lt;Errorish: An error occurred&gt;</span>
 
 <span class="hljs-comment">// Options for `rejects` and `throws` also take a `case` field which,</span>
 <span class="hljs-comment">// if false, will make them to have a void response</span>
-<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> rejects(err, { <span class="hljs-attr">case</span>: <span class="hljs-literal">false</span> })); <span class="hljs-comment">// Resolve&lt;undefined&gt;</span></code></pre>
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> rejects(err, { <span class="hljs-attr">case</span>: <span class="hljs-literal">false</span> })); <span class="hljs-comment">// Resolve&lt;undefined&gt;</span>
+
+<span class="hljs-comment">/* throws */</span>
+throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-number">10</span>; }); <span class="hljs-comment">// Throw&lt;Errorish: An error occurred&gt;</span>
+
+<span class="hljs-comment">// The above is equivalent to:</span>
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">throw</span> <span class="hljs-number">10</span>;
+} <span class="hljs-keyword">catch</span>(err) {
+  <span class="hljs-keyword">throw</span> ensure(err);
+}
+
+throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">10</span>); <span class="hljs-comment">// Return&lt;10&gt;</span></code></pre>
 				<h3 id="normalizing-errors">Normalizing errors</h3>
 				<p>Normalization is performed by default by <a href="https://rafamel.github.io/errorish/globals.html#throws"><code>ensure</code>,</a> but it can also be run independently:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { normalize } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
@@ -201,13 +214,13 @@ normalize(<span class="hljs-built_in">Error</span>(), { <span class="hljs-attr">
 						<a href="interfaces/icoreoptions.html" class="tsd-kind-icon">ICore<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iexceptionoptions.html" class="tsd-kind-icon">IException<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/inormalizeoptions.html" class="tsd-kind-icon">INormalize<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/ioftype.html" class="tsd-kind-icon">IOf<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/irejectionoptions.html" class="tsd-kind-icon">IRejection<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iscope.html" class="tsd-kind-icon">IScope</a>
@@ -221,7 +234,7 @@ normalize(<span class="hljs-built_in">Error</span>(), { <span class="hljs-attr">
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#rejects" class="tsd-kind-icon">rejects</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#throws" class="tsd-kind-icon">throws</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
