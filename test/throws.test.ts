@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import throws from '~/throws';
 import ensure from '~/ensure';
 import { IOfType } from '~/types';
@@ -12,37 +13,37 @@ beforeEach(() => Object.values(mocks).forEach((mock) => mock.mockClear()));
 mocks.ensure.mockImplementation(() => new Error(`Foo bar`));
 
 test(`throws`, () => {
-  expect(() => throws(10)).toThrowErrorMatchingInlineSnapshot(`"Foo bar"`);
-  expect(() => throws(10, {})).toThrowErrorMatchingInlineSnapshot(`"Foo bar"`);
-  expect(() => throws(10, { case: true })).toThrowErrorMatchingInlineSnapshot(
-    `"Foo bar"`
-  );
+  expect(() =>
+    throws(() => {
+      throw 10;
+    })
+  ).toThrowErrorMatchingInlineSnapshot(`"Foo bar"`);
 
-  expect(mocks.ensure).toHaveBeenCalledTimes(3);
-  expect(mocks.ensure).toHaveBeenNthCalledWith(1, 10, undefined, undefined);
-  expect(mocks.ensure).toHaveBeenNthCalledWith(2, 10, {}, undefined);
-  expect(mocks.ensure).toHaveBeenNthCalledWith(
-    3,
-    10,
-    { case: true },
-    undefined
-  );
+  expect(mocks.ensure).toHaveBeenCalledTimes(1);
+  expect(mocks.ensure).toHaveBeenCalledWith(10, undefined, undefined);
 });
 test(`doesn't throw`, () => {
-  expect(throws(10, { case: false })).toBeUndefined();
-  expect(throws(10, { case: undefined })).toBeUndefined();
+  expect(() => throws(() => 10)).not.toThrow();
+  expect(throws(() => 10)).toBe(10);
+
+  const err = new Error();
+  expect(() => throws(() => err)).not.toThrow();
+  expect(throws(() => err)).toBe(err);
 
   expect(mocks.ensure).not.toHaveBeenCalled();
 });
-test(`passes data`, () => {
+test(`passes data`, async () => {
   const data = { foo: 'bar' };
-  expect(() => throws(10, { case: true, message: 'baz' }, data)).toThrow();
+  expect(() =>
+    throws(
+      () => {
+        throw 10;
+      },
+      { message: 'baz' },
+      data
+    )
+  ).toThrowErrorMatchingInlineSnapshot(`"Foo bar"`);
 
   expect(mocks.ensure).toHaveBeenCalledTimes(1);
-  expect(mocks.ensure).toHaveBeenNthCalledWith(
-    1,
-    10,
-    { case: true, message: 'baz' },
-    data
-  );
+  expect(mocks.ensure).toHaveBeenCalledWith(10, { message: 'baz' }, data);
 });
