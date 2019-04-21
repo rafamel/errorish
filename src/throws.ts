@@ -2,7 +2,7 @@ import ensure from './ensure';
 import { ICoreOptions, IOfType } from './types';
 
 /**
- * Returns the result of `fn`; if it throws, `throws` will throw an `error`, having called `ensure` on it.
+ * Returns the result of `fn`; if it throws, it will call `ensure` on the thrown error and throw it.
  */
 export default function throws<T>(
   fn: () => T,

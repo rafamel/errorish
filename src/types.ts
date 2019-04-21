@@ -70,9 +70,9 @@ export interface ICoreOptions extends INormalizeOptions {
   Error?: IConstructor<Error>;
 }
 
-export interface IExceptionOptions extends ICoreOptions {
+export interface IRejectionOptions extends ICoreOptions {
   /**
-   * If `case` exists, `throws` and `rejects` will only throw/reject when `true`, otherwise their response will be void.
+   * If `case` exists, `rejects` will only reject when `true`, otherwise its response will be void.
    */
   case?: boolean;
 }
