@@ -8,9 +8,9 @@
 [![License](https://img.shields.io/github/license/rafamel/errorish.svg)](https://github.com/rafamel/errorish/blob/master/LICENSE)
 [![Types](https://img.shields.io/npm/types/errorish.svg)](https://www.npmjs.com/package/errorish)
 
-> For those times you have an error-*ish* but what you really want is an *Error*
+> For those times you have an error-*ish* but what you really want is an *Error.*
 
-If you come to find it useful, consider [starring the project](https://github.com/rafamel/errorish) and/or following [its author](https://github.com/rafamel) to show your ❤️
+If you find it useful, consider [starring the project](https://github.com/rafamel/errorish) 💪 and/or following [its author](https://github.com/rafamel) ❤️ -there's more on the way!
 
 ## Install
 
@@ -33,8 +33,8 @@ These are all of `errorish`'s functions -[see docs:](https://rafamel.github.io/e
 
 * [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) ensures `any` is an `Error`, otherwise creating one -optionally, it can also have a normalization step, which is [enabled by default.](https://rafamel.github.io/errorish/globals.html#defaults)
 * [`normalize`](https://rafamel.github.io/errorish/globals.html#normalize) ensures an `Error` has a `message`, `name`, and `stack` properties -filling them if they're not defined.
-* [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) parses a `help` string and returns an object with options, aliases, arguments, and descriptions.
-* [`throws`](https://rafamel.github.io/errorish/globals.html#throws) parses a `help` string and returns an object with options, aliases, arguments, and descriptions.
+* [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) returns a promise rejection with an error, having called `ensure` on it.
+* [`throws`](https://rafamel.github.io/errorish/globals.html#throws) takes a function and returns its value if it doesn't throw; otherwise, it will call `ensure` on the thrown error and throw it.
 
 [Options](https://rafamel.github.io/errorish/interfaces/icoreoptions.html) can be passed directly to these functions, though they will be merged in all cases with the [defaults](https://rafamel.github.io/errorish/globals.html#defaults) -you can use [`scope.set`](https://rafamel.github.io/errorish/globals.html#scope) to set these.
 
@@ -71,13 +71,26 @@ ensure(10, null, { foo: 'bar' }).data; // { foo: 'bar' }
 [`throws`](https://rafamel.github.io/errorish/globals.html#throws) and [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) run [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) over your error-*ish* and throw or reject with it -these are just convenience functions over `ensure`:
 
 ```javascript
-import { rejects } from 'errorish';
+import { rejects, throws, ensure } from 'errorish';
 
+/* rejects */
 Promise.reject(10).catch(rejects) // Reject<Errorish: An error occurred>
 
 // Options for `rejects` and `throws` also take a `case` field which,
 // if false, will make them to have a void response
 Promise.reject(10).catch(err => rejects(err, { case: false })); // Resolve<undefined>
+
+/* throws */
+throws(() => { throw 10; }); // Throw<Errorish: An error occurred>
+
+// The above is equivalent to:
+try {
+  throw 10;
+} catch(err) {
+  throw ensure(err);
+}
+
+throws(() => 10); // Return<10>
 ```
 
 ### Normalizing errors
