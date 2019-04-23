@@ -14,23 +14,22 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "semanticCommitType": "chore",
-      "commitMessageSuffix": "(development)",
-      "extends": ["schedule:monthly"],
-      "minor": {
-        "groupName": "all non-major dependencies",
-        "groupSlug": "all-dev-minor-patch"
-      }
-    },
-    {
-      "depTypeList": ["dependencies"],
       "semanticCommitType": "fix",
-      "commitMessageSuffix": "",
-      "extends": ["schedule:daily"],
+      "extends": ["schedule:weekly"],
       "minor": {
         "extends": ["schedule:monthly"],
         "groupName": "all non-major dependencies",
         "groupSlug": "all-minor-patch"
+      }
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "semanticCommitType": "chore",
+      "commitMessageSuffix": "(development)",
+      "schedule": "before 3am on the first day of the year",
+      "minor": {
+        "groupName": "all non-major dependencies",
+        "groupSlug": "all-dev-minor-patch"
       }
     }
   ]
