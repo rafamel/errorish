@@ -10,14 +10,15 @@ function rejects(
 ): Promise<never>;
 function rejects(
   error: any,
-  options: IRejectionOptions,
-  data?: IOfType<any>
-): Promise<void>;
-function rejects(
-  error: any,
   options?: ICoreOptions | null,
   data?: IOfType<any>
 ): Promise<never>;
+function rejects(
+  error: any,
+  options: IRejectionOptions,
+  data?: IOfType<any>
+): Promise<void>;
+function rejects(error: any): Promise<never>;
 /**
  * Returns a promise rejection with `error`, having called `ensure` on it.
  */
