@@ -90,6 +90,9 @@ try {
   throw ensure(err);
 }
 
+// it can also be passed an async function
+throws(async () => { throw 10; }); // Reject<Errorish: An error occurred>
+
 throws(() => 10); // Return<10>
 ```
 
