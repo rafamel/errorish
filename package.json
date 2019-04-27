@@ -109,7 +109,9 @@
     "typedoc": "^0.14.2",
     "typescript": "3.4.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "promist": "^0.5.3"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "cross-env COMMIT=# nps validate"
