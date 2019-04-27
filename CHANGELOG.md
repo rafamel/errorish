@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/rafamel/errorish/compare/v0.2.1...v0.3.0) (2019-04-27)
+
+
+### Features
+
+* **throws:** takes async functions too ([0e6d974](https://github.com/rafamel/errorish/commit/0e6d974))
+
+
+
 ## [0.2.1](https://github.com/rafamel/errorish/compare/v0.2.0...v0.2.1) (2019-04-23)
 
 
