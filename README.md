@@ -1,8 +1,8 @@
 # errorish
 
 [![Version](https://img.shields.io/npm/v/errorish.svg)](https://www.npmjs.com/package/errorish)
-[![Build Status](https://img.shields.io/travis/rafamel/errorish.svg)](https://travis-ci.org/rafamel/errorish)
-[![Coverage](https://img.shields.io/coveralls/rafamel/errorish.svg)](https://coveralls.io/github/rafamel/errorish)
+[![Build Status](https://img.shields.io/travis/rafamel/errorish/master.svg)](https://travis-ci.org/rafamel/errorish)
+[![Coverage](https://img.shields.io/coveralls/rafamel/errorish/master.svg)](https://coveralls.io/github/rafamel/errorish)
 [![Dependencies](https://img.shields.io/david/rafamel/errorish.svg)](https://david-dm.org/rafamel/errorish)
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/errorish.svg)](https://snyk.io/test/npm/errorish)
 [![License](https://img.shields.io/github/license/rafamel/errorish.svg)](https://github.com/rafamel/errorish/blob/master/LICENSE)
