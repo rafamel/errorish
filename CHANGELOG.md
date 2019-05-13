@@ -1,3 +1,27 @@
+# [0.4.0](https://github.com/rafamel/errorish/compare/v0.3.0...v0.4.0) (2019-05-13)
+
+
+### Bug Fixes
+
+* **deps:** updates promist to v0.6.0 ([910b0c5](https://github.com/rafamel/errorish/commit/910b0c5))
+* **deps:** updates promist to v0.7.0 ([fa8b936](https://github.com/rafamel/errorish/commit/fa8b936))
+
+
+### Features
+
+* **Errorish:** adds set and assign methods ([844fa77](https://github.com/rafamel/errorish/commit/844fa77))
+* **Errorish:** allows for message to be null ([feb020d](https://github.com/rafamel/errorish/commit/feb020d))
+* **Errorish:** recursively obtains root ([f74fdb7](https://github.com/rafamel/errorish/commit/f74fdb7))
+* **Errorish:** reverses source and data params order ([3b17f3b](https://github.com/rafamel/errorish/commit/3b17f3b))
+
+
+### BREAKING CHANGES
+
+* **Errorish:** While previously `data` was the second argument and `source` the third for the
+Errorish class constructor, now `source` is the second and `data` the third
+
+
+
 # [0.3.0](https://github.com/rafamel/errorish/compare/v0.2.1...v0.3.0) (2019-04-27)
 
 

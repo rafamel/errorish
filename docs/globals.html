@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>errorish 0.3.0</title>
+	<title>errorish 0.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">errorish 0.3.0</a>
+					<a href="index.html" class="title">errorish 0.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -54,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> errorish 0.3.0</h1>
+			<h1> errorish 0.4.0</h1>
 		</div>
 	</div>
 </header>
@@ -83,22 +83,55 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="globals.html#scopes" class="tsd-kind-icon">scopes</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#values" class="tsd-kind-icon">values</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#ensure" class="tsd-kind-icon">ensure</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#normalize" class="tsd-kind-icon">normalize</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#rejects" class="tsd-kind-icon">rejects</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#stringify" class="tsd-kind-icon">stringify</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#throws" class="tsd-kind-icon">throws</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#trunk" class="tsd-kind-icon">trunk</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-object-literal"><a href="globals.html#defaults" class="tsd-kind-icon">defaults</a></li>
+								<li class="tsd-kind-object-literal"><a href="globals.html#root" class="tsd-kind-icon">root</a></li>
 								<li class="tsd-kind-object-literal tsd-is-not-exported"><a href="globals.html#scope" class="tsd-kind-icon">scope</a></li>
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="scopes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> scopes</h3>
+					<div class="tsd-signature tsd-kind-icon">scopes<span class="tsd-signature-symbol">:</span> <a href="interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/iscope.html" class="tsd-signature-type">IScope</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L8">scope/values.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="values" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> values</h3>
+					<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <a href="interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/icoreoptions.html" class="tsd-signature-type">ICoreOptions</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L9">scope/values.ts:9</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -113,12 +146,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/ensure/index.ts#L12">ensure/index.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/ensure/index.ts#L12">ensure/index.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Will return <code>error</code> if it is an instance of <code>options.Error</code> -by default, and instance of <code>Error</code>. Otherwise, it will instantiate and return an <code>Error</code> of class <code>options.Errorish</code> -<code>Errorish</code> by default. This newly created error will have:</p>
+									<p>Will return <code>error</code> if it is an instance of <code>options.Error</code> -by default, and instance of <code>Error</code>. Otherwise, it will instantiate and return an <code>Error</code> of class <code>options.Errorish</code> -<code>Errorish</code> by default. This newly created error -if created- would have:</p>
 									<ul>
 										<li>whatever you passed as an <code>error</code> as its <code>source</code> field.</li>
 										<li>whatever you passed as <code>data</code> as its <code>data</code> field.</li>
@@ -157,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/normalize.ts#L7">normalize.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/normalize.ts#L7">normalize.ts:7</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -200,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/rejects.ts#L6">rejects.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/rejects.ts#L6">rejects.ts:6</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -225,7 +258,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/rejects.ts#L11">rejects.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/rejects.ts#L11">rejects.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -250,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/rejects.ts#L16">rejects.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/rejects.ts#L16">rejects.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/rejects.ts#L21">rejects.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/rejects.ts#L21">rejects.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,6 +326,32 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="stringify" class="tsd-anchor"></a>
+					<h3>stringify</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">stringify<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Required</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/icoreoptions.html" class="tsd-signature-type">ICoreOptions</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/ensure/stringify.ts#L3">ensure/stringify.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>message: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>options: <span class="tsd-signature-type">Required</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/icoreoptions.html" class="tsd-signature-type">ICoreOptions</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 					<a name="throws" class="tsd-anchor"></a>
 					<h3>throws</h3>
@@ -303,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/throws.ts#L8">throws.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/throws.ts#L9">throws.ts:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -345,6 +404,35 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="trunk" class="tsd-anchor"></a>
+					<h3>trunk</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">trunk<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Required</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/icoreoptions.html" class="tsd-signature-type">ICoreOptions</a><span class="tsd-signature-symbol">&gt;</span>, data<span class="tsd-signature-symbol">?: </span><a href="interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/ensure/trunk.ts#L4">ensure/trunk.ts:4</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>error: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>options: <span class="tsd-signature-type">Required</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/icoreoptions.html" class="tsd-signature-type">ICoreOptions</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Error</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Object literals</h2>
@@ -354,7 +442,7 @@
 					<div class="tsd-signature tsd-kind-icon">defaults<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L7">scope/defaults.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L7">scope/defaults.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -368,7 +456,7 @@
 						<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span><span class="tsd-signature-symbol"> =&nbsp;Error</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L14">scope/defaults.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L14">scope/defaults.ts:14</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -378,7 +466,7 @@
 						<div class="tsd-signature tsd-kind-icon">Errorish<span class="tsd-signature-symbol">:</span> <a href="classes/errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol"> =&nbsp;Errorish</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L10">scope/defaults.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L10">scope/defaults.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -388,7 +476,7 @@
 						<div class="tsd-signature tsd-kind-icon">allow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;string&#x27;]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L13">scope/defaults.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L13">scope/defaults.ts:13</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -398,7 +486,7 @@
 						<div class="tsd-signature tsd-kind-icon">capture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L12">scope/defaults.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L12">scope/defaults.ts:12</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -408,7 +496,7 @@
 						<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;An error occurred&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L9">scope/defaults.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L9">scope/defaults.ts:9</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -418,7 +506,7 @@
 						<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;Error&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L8">scope/defaults.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L8">scope/defaults.ts:8</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -428,7 +516,67 @@
 						<div class="tsd-signature tsd-kind-icon">normalize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/defaults.ts#L11">scope/defaults.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/defaults.ts#L11">scope/defaults.ts:11</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal">
+					<a name="root" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> root</h3>
+					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="root.ensure" class="tsd-anchor"></a>
+						<h3>ensure</h3>
+						<div class="tsd-signature tsd-kind-icon">ensure<span class="tsd-signature-symbol">:</span> <a href="globals.html#ensure" class="tsd-signature-type">ensure</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="root.name" class="tsd-anchor"></a>
+						<h3>name</h3>
+						<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="root.normalize" class="tsd-anchor"></a>
+						<h3>normalize</h3>
+						<div class="tsd-signature tsd-kind-icon">normalize<span class="tsd-signature-symbol">:</span> <a href="globals.html#normalize" class="tsd-signature-type">normalize</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="root.rejects" class="tsd-anchor"></a>
+						<h3>rejects</h3>
+						<div class="tsd-signature tsd-kind-icon">rejects<span class="tsd-signature-symbol">:</span> <a href="globals.html#rejects" class="tsd-signature-type">rejects</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="root.throws" class="tsd-anchor"></a>
+						<h3>throws</h3>
+						<div class="tsd-signature tsd-kind-icon">throws<span class="tsd-signature-symbol">:</span> <a href="globals.html#throws" class="tsd-signature-type">throws</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/values.ts#L7">scope/values.ts:7</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -439,7 +587,7 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/index.ts#L12">scope/index.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/index.ts#L12">scope/index.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -457,7 +605,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/index.ts#L16">scope/index.ts:16</a></li>
+										<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/index.ts#L16">scope/index.ts:16</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -485,7 +633,7 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/rafamel/errorish/blob/dd71a4b/src/scope/index.ts#L49">scope/index.ts:49</a></li>
+										<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/scope/index.ts#L49">scope/index.ts:49</a></li>
 									</ul>
 								</aside>
 								<div class="tsd-comment tsd-typography">
@@ -537,6 +685,12 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iscope.html" class="tsd-kind-icon">IScope</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#scopes" class="tsd-kind-icon">scopes</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#values" class="tsd-kind-icon">values</a>
+					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#ensure" class="tsd-kind-icon">ensure</a>
 					</li>
@@ -546,11 +700,20 @@
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#rejects" class="tsd-kind-icon">rejects</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#stringify" class="tsd-kind-icon">stringify</a>
+					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#throws" class="tsd-kind-icon">throws</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trunk" class="tsd-kind-icon">trunk</a>
+					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaults" class="tsd-kind-icon">defaults</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#root" class="tsd-kind-icon">root</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
 						<a href="globals.html#scope" class="tsd-kind-icon">scope</a>
