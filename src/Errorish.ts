@@ -28,4 +28,18 @@ export default class Errorish<S> extends Error {
     if (this.source instanceof Errorish) return this.source.root;
     return this.source instanceof Error ? this.source : this;
   }
+  /**
+   * Sets the `data` field and returns itself.
+   */
+  public set<T extends Errorish<S>>(this: T, data: IOfType<any>): T {
+    this.data = data;
+    return this;
+  }
+  /**
+   * Assigns `data` to the `data` field and returns itself.
+   */
+  public assign<T extends Errorish<S>>(this: T, data: IOfType<any>): T {
+    Object.assign(this.data, data);
+    return this;
+  }
 }

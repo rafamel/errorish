@@ -45,3 +45,11 @@ test(`recursively obtains root`, () => {
   const err2 = new Errorish(null, err1);
   expect(err2.root).toBe(err0);
 });
+test(`set`, () => {
+  const err = new Errorish(null, null, { bar: 'baz' }).set({ foo: 'bar' });
+  expect(err).toHaveProperty('data', { foo: 'bar' });
+});
+test(`assign`, () => {
+  const err = new Errorish(null, null, { bar: 'baz' }).assign({ foo: 'bar' });
+  expect(err).toHaveProperty('data', { foo: 'bar', bar: 'baz' });
+});
