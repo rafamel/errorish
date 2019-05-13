@@ -39,3 +39,9 @@ test(`root is source when it's an error`, () => {
   const err4 = new Errorish(undefined, null, err3);
   expect(err4.root).toBe(err3);
 });
+test(`recursively obtains root`, () => {
+  const err0 = Error();
+  const err1 = new Errorish(undefined, null, err0);
+  const err2 = new Errorish(undefined, null, err1);
+  expect(err2.root).toBe(err0);
+});

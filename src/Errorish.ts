@@ -15,13 +15,17 @@ export default class Errorish<T extends IOfType<any>> extends Error {
     this.source = source;
     this.data = (data || {}) as T & IOfType<any>;
   }
+  /**
+   * Custom Error name: 'Errorish'
+   */
   public get name(): string {
     return 'Errorish';
   }
   /**
-   * References `source` if it's an instance of Error, otherwise it references itself.
+   * References `source.root` is an instance of `Errorish`; references `source` if it is an instance of `Error`; otherwise it references itself.
    */
   public get root(): Error {
+    if (this.source instanceof Errorish) return this.source.root;
     return this.source instanceof Error ? this.source : this;
   }
 }
