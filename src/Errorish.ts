@@ -9,8 +9,8 @@ export default class Errorish<T extends IOfType<any>> extends Error {
    * An optional `data` field.
    */
   public data: T & IOfType<any>;
-  public constructor(message?: string, data?: T | null, source?: any) {
-    super(message);
+  public constructor(message?: string | null, data?: T | null, source?: any) {
+    super(message || undefined);
 
     this.source = source;
     this.data = (data || {}) as T & IOfType<any>;
