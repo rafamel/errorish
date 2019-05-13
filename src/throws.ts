@@ -1,4 +1,5 @@
 import ensure from './ensure';
+import rejects from './rejects';
 import { isPromise, lazy } from 'promist';
 import { ICoreOptions, IOfType } from './types';
 
@@ -11,16 +12,14 @@ export default function throws<T>(
   data?: IOfType<any>
 ): T {
   try {
-    const res = fn();
-    if (!isPromise(res)) return res;
+    const response = fn();
+    if (!isPromise(response)) return response;
 
-    // if it is a promise:
+    // if it is a promise
     // in case res was a lazy promise
-    return lazy((resolve, reject) => {
-      return (res as any)
-        .then(resolve)
-        .catch((err: Error) => reject(ensure(err, options, data)));
-    }) as any;
+    return lazy.fn(() => {
+      return response.catch((err) => rejects(err, options, data));
+    }) as typeof response;
   } catch (err) {
     throw ensure(err, options, data);
   }
