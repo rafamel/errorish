@@ -1,19 +1,19 @@
 import { IOfType } from './types';
 
-export default class Errorish<T extends IOfType<any>> extends Error {
+export default class Errorish<S> extends Error {
   /**
    * An optional `source` -should reference the object that originated the `Errorish`.
    */
-  public source?: any;
+  public source?: S;
   /**
    * An optional `data` field.
    */
-  public data: T & IOfType<any>;
-  public constructor(message?: string | null, data?: T | null, source?: any) {
+  public data: IOfType<any>;
+  public constructor(message?: string | null, source?: S, data?: IOfType<any>) {
     super(message || undefined);
 
     this.source = source;
-    this.data = (data || {}) as T & IOfType<any>;
+    this.data = data || {};
   }
   /**
    * Custom Error name: 'Errorish'

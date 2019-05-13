@@ -17,7 +17,7 @@ export default function trunk(
     ? stringify(message, options)
     : options.message;
 
-  error = new options.Errorish(message, data, error);
+  error = new options.Errorish(message, error, data);
   if (options.capture && Error.captureStackTrace) {
     Error.captureStackTrace(error, options.Errorish);
   }
