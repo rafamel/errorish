@@ -6,7 +6,7 @@ export default class Errorish<S> extends Error {
    */
   public source?: S;
   /**
-   * An optional `data` field.
+   * A `data` object.
    */
   public data: IOfType<any>;
   public constructor(message?: string | null, source?: S, data?: IOfType<any>) {
@@ -22,7 +22,7 @@ export default class Errorish<S> extends Error {
     return 'Errorish';
   }
   /**
-   * References `source.root` is an instance of `Errorish`; references `source` if it is an instance of `Error`; otherwise it references itself.
+   * References `source.root` if it's an instance of `Errorish`; references `source` if it's an instance of `Error`; otherwise it references itself.
    */
   public get root(): Error {
     if (this.source instanceof Errorish) return this.source.root;
@@ -36,7 +36,7 @@ export default class Errorish<S> extends Error {
     return this;
   }
   /**
-   * Assigns `data` to the `data` field and returns itself.
+   * Assigns `data` to the instance `data` object and returns itself.
    */
   public assign<T extends Errorish<S>>(this: T, data: IOfType<any>): T {
     Object.assign(this.data, data);
