@@ -1,6 +1,6 @@
 import ensure from './ensure';
 import rejects from './rejects';
-import { isPromise, lazy } from 'promist';
+import { isPromise, LazyPromist } from 'promist';
 import { ICoreOptions, IOfType } from './types';
 
 /**
@@ -17,8 +17,10 @@ export default function throws<T>(
 
     // if it is a promise
     // in case res was a lazy promise
-    return lazy.fn(() => {
+    return LazyPromist.from(() => {
       return response.catch((err) => rejects(err, options, data));
+    }).then((value) => {
+      return value;
     }) as typeof response;
   } catch (err) {
     throw ensure(err, options, data);

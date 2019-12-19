@@ -16,8 +16,9 @@ const scope = {
   get(name?: string): IScope {
     if (!name) return root;
 
-    if (!scopes.hasOwnProperty(name)) {
-      if (!values.hasOwnProperty(name)) values[name] = {};
+    if (!Object.hasOwnProperty.call(scopes, name)) {
+      if (!Object.hasOwnProperty.call(values, name)) values[name] = {};
+
       const options = values[name];
 
       scopes[name] = {
@@ -52,7 +53,7 @@ const scope = {
 
     if (!name) Object.assign(defaults, options);
     else {
-      if (!values.hasOwnProperty(name)) values[name] = {};
+      if (!Object.hasOwnProperty.call(values, name)) values[name] = {};
       Object.assign(values[name], options);
     }
 

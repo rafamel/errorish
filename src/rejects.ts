@@ -28,7 +28,9 @@ async function rejects(
   data?: IOfType<any>
 ): Promise<void | never> {
   const condition =
-    options && options.hasOwnProperty('case') ? options.case : true;
+    options && Object.hasOwnProperty.call(options, 'case')
+      ? options.case
+      : true;
 
   if (condition) throw ensure(error, options, data);
 }

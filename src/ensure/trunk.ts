@@ -9,7 +9,9 @@ export default function trunk(
   if (error instanceof options.Error) return error;
 
   let message =
-    error && typeof error === 'object' && error.hasOwnProperty('message')
+    error &&
+    typeof error === 'object' &&
+    Object.hasOwnProperty.call(error, 'message')
       ? error.message
       : error;
 

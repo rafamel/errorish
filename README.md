@@ -1,4 +1,4 @@
-# errorish
+# Errorish
 
 [![Version](https://img.shields.io/npm/v/errorish.svg)](https://www.npmjs.com/package/errorish)
 [![Build Status](https://img.shields.io/travis/rafamel/errorish/master.svg)](https://travis-ci.org/rafamel/errorish)
@@ -7,10 +7,6 @@
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/errorish.svg)](https://snyk.io/test/npm/errorish)
 [![License](https://img.shields.io/github/license/rafamel/errorish.svg)](https://github.com/rafamel/errorish/blob/master/LICENSE)
 [![Types](https://img.shields.io/npm/types/errorish.svg)](https://www.npmjs.com/package/errorish)
-
-> For those times you have an error-*ish* but what you really want is an *Error.*
-
-If you find it useful, consider [starring the project](https://github.com/rafamel/errorish) 💪 and/or following [its author](https://github.com/rafamel) ❤️ -there's more on the way!
 
 ## Install
 
