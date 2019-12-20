@@ -1,15 +1,15 @@
 import ensure from './ensure';
 import rejects from './rejects';
 import { isPromise, LazyPromist } from 'promist';
-import { ICoreOptions, IOfType } from './types';
+import { CoreOptions, ErrorData } from './types';
 
 /**
  * Returns the result of `fn`; if it throws, it will call `ensure` on the thrown error and throw it. `fn` can be an *async* function -it will be automatically detected.
  */
 export default function throws<T>(
   fn: () => T,
-  options?: ICoreOptions | null,
-  data?: IOfType<any>
+  options?: CoreOptions | null,
+  data?: ErrorData
 ): T {
   try {
     const response = fn();

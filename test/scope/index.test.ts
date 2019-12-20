@@ -5,14 +5,13 @@ import ensure from '~/ensure';
 import throws from '~/throws';
 import rejects from '~/rejects';
 import normalize from '~/normalize';
-import { IOfType } from '~/types';
 
 jest.mock('~/ensure');
 jest.mock('~/throws');
 jest.mock('~/rejects');
 jest.mock('~/normalize');
 
-const mocks: IOfType<jest.Mock<any, any>> = {
+const mocks: Record<string, jest.Mock<any, any>> = {
   ensure,
   throws,
   rejects,

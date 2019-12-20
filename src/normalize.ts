@@ -1,4 +1,4 @@
-import { INormalizeOptions } from './types';
+import { NormalizeOptions } from './types';
 import defaults from './scope/defaults';
 
 /**
@@ -6,7 +6,7 @@ import defaults from './scope/defaults';
  */
 export default function normalize<T extends Error>(
   error: T,
-  options?: INormalizeOptions
+  options?: NormalizeOptions
 ): T & { stack: string } {
   const opts = Object.assign({}, defaults, options);
   if (!error.name) {

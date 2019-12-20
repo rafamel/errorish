@@ -5,24 +5,20 @@ import rejects from './rejects';
 import normalize from './normalize';
 
 /**
- * An object with values of `T`.
- */
-export interface IOfType<T> {
-  [key: string]: T;
-}
-
-/**
  * A constructor for `T`.
  */
-export interface IConstructor<T> {
+export interface Constructor<T> {
   new (...args: any[]): T;
   prototype: T;
 }
 
+/** Error data type. See `Errorish.data`. */
+export type ErrorData = Record<string, any>;
+
 /**
  * See `scope`.
  */
-export interface IScope {
+export interface Scope {
   /**
    * Name of the scope, set on creation when calling `scope.get`. It will be `null` for the root scope.
    */
@@ -33,7 +29,7 @@ export interface IScope {
   normalize: typeof normalize;
 }
 
-export interface INormalizeOptions {
+export interface NormalizeOptions {
   /**
    * `message` to be used when normalizing errors that don't have one
    */
@@ -47,7 +43,7 @@ export interface INormalizeOptions {
 /**
  * See `defaults` for more information on default values.
  */
-export interface ICoreOptions extends INormalizeOptions {
+export interface CoreOptions extends NormalizeOptions {
   /**
    * Whether normalization should be applied by default when ensuring an error -see `ensure`.
    */
@@ -63,14 +59,14 @@ export interface ICoreOptions extends INormalizeOptions {
   /**
    * An `Errorish` inheriting class to instantiate errors with when ensuring an object is an error.
    */
-  Errorish?: IConstructor<Errorish<any>>;
+  Errorish?: Constructor<Errorish<any>>;
   /**
    * Error type objects will be ensured against; aka, if an object is not an instance of `Error`, an error will be created using `Errorish`.
    */
-  Error?: IConstructor<Error>;
+  Error?: Constructor<Error>;
 }
 
-export interface IRejectionOptions extends ICoreOptions {
+export interface RejectionOptions extends CoreOptions {
   /**
    * If `case` exists, `rejects` will only reject when `true`, otherwise its response will be void.
    */

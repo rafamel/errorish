@@ -1,10 +1,10 @@
 import stringify from './stringify';
-import { ICoreOptions, IOfType } from '~/types';
+import { CoreOptions, ErrorData } from '~/types';
 
 export default function trunk(
   error: any,
-  options: Required<ICoreOptions>,
-  data?: IOfType<any>
+  options: Required<CoreOptions>,
+  data?: ErrorData
 ): Error {
   if (error instanceof options.Error) return error;
 

@@ -1,11 +1,10 @@
 /* eslint-disable no-throw-literal */
 import throws from '~/throws';
 import ensure from '~/ensure';
-import { IOfType } from '~/types';
 
 jest.mock('~/ensure');
 
-const mocks: IOfType<jest.Mock<any, any>> = {
+const mocks: Record<string, jest.Mock<any, any>> = {
   ensure
 } as any;
 

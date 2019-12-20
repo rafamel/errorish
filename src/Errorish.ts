@@ -1,4 +1,4 @@
-import { IOfType } from './types';
+import { ErrorData } from './types';
 
 export default class Errorish<S> extends Error {
   /**
@@ -8,8 +8,8 @@ export default class Errorish<S> extends Error {
   /**
    * A `data` object.
    */
-  public data: IOfType<any>;
-  public constructor(message?: string | null, source?: S, data?: IOfType<any>) {
+  public data: ErrorData;
+  public constructor(message?: string | null, source?: S, data?: ErrorData) {
     super(message || undefined);
 
     this.source = source;
@@ -31,14 +31,14 @@ export default class Errorish<S> extends Error {
   /**
    * Sets the `data` field and returns itself.
    */
-  public set<T extends Errorish<S>>(this: T, data: IOfType<any>): T {
+  public set<T extends Errorish<S>>(this: T, data: ErrorData): T {
     this.data = data;
     return this;
   }
   /**
    * Assigns `data` to the instance `data` object and returns itself.
    */
-  public assign<T extends Errorish<S>>(this: T, data: IOfType<any>): T {
+  public assign<T extends Errorish<S>>(this: T, data: ErrorData): T {
     Object.assign(this.data, data);
     return this;
   }

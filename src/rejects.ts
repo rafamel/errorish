@@ -1,22 +1,22 @@
 import ensure from './ensure';
-import { IRejectionOptions, ICoreOptions, IOfType } from './types';
+import { RejectionOptions, CoreOptions, ErrorData } from './types';
 
 export default rejects;
 
 function rejects(
   error: any,
-  options: IRejectionOptions & { case: true },
-  data?: IOfType<any>
+  options: RejectionOptions & { case: true },
+  data?: ErrorData
 ): Promise<never>;
 function rejects(
   error: any,
-  options?: ICoreOptions | null,
-  data?: IOfType<any>
+  options?: CoreOptions | null,
+  data?: ErrorData
 ): Promise<never>;
 function rejects(
   error: any,
-  options: IRejectionOptions,
-  data?: IOfType<any>
+  options: RejectionOptions,
+  data?: ErrorData
 ): Promise<void>;
 function rejects(error: any): Promise<never>;
 /**
@@ -24,8 +24,8 @@ function rejects(error: any): Promise<never>;
  */
 async function rejects(
   error: any,
-  options?: IRejectionOptions | null,
-  data?: IOfType<any>
+  options?: RejectionOptions | null,
+  data?: ErrorData
 ): Promise<void | never> {
   const condition =
     options && Object.hasOwnProperty.call(options, 'case')

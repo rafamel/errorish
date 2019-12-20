@@ -2,11 +2,10 @@ import trunk from '~/ensure/trunk';
 import stringify from '~/ensure/stringify';
 import defaults from '~/scope/defaults';
 import Errorish from '~/Errorish';
-import { IOfType } from '~/types';
 
 jest.mock('~/ensure/stringify');
 
-const mocks: IOfType<jest.Mock<any, any>> = {
+const mocks: Record<string, jest.Mock<any, any>> = {
   stringify
 } as any;
 

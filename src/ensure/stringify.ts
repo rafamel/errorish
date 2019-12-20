@@ -1,8 +1,8 @@
-import { ICoreOptions } from '~/types';
+import { CoreOptions } from '~/types';
 
 export default function stringify(
   message: any,
-  options: Required<ICoreOptions>
+  options: Required<CoreOptions>
 ): string {
   if (typeof message === 'string') return message;
 

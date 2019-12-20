@@ -3,7 +3,7 @@ import throws from '~/throws';
 import rejects from '~/rejects';
 import normalize from '~/normalize';
 import defaults from './defaults';
-import { IScope, ICoreOptions } from '~/types';
+import { Scope, CoreOptions } from '~/types';
 import { root, scopes, values } from './values';
 
 /**
@@ -13,7 +13,7 @@ const scope = {
   /**
    * Gets a scope by name -it is created if it doesn't exist. If no name is passed, the root scope will be returned.
    */
-  get(name?: string): IScope {
+  get(name?: string): Scope {
     if (!name) return root;
 
     if (!Object.hasOwnProperty.call(scopes, name)) {
@@ -47,9 +47,9 @@ const scope = {
   /**
    * Sets default options for a scope, taking the name of the scope as the first argument, and the `ICoreOptions` options as the second. If no name is passed and a single `ICoreOptions` argument is in its place, it will set the defaults for the root scope. It will also return the scope.
    */
-  set(...args: [string, ICoreOptions] | [ICoreOptions]): IScope {
+  set(...args: [string, CoreOptions] | [CoreOptions]): Scope {
     const name = args.find((x) => typeof x === 'string') as string | undefined;
-    const options = args.find((x) => typeof x === 'object') as ICoreOptions;
+    const options = args.find((x) => typeof x === 'object') as CoreOptions;
 
     if (!name) Object.assign(defaults, options);
     else {

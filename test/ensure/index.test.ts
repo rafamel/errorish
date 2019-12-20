@@ -2,12 +2,11 @@ import ensure from '~/ensure';
 import trunk from '~/ensure/trunk';
 import normalize from '~/normalize';
 import defaults from '~/scope/defaults';
-import { IOfType } from '~/types';
 
 jest.mock('~/ensure/trunk');
 jest.mock('~/normalize');
 
-const mocks: IOfType<jest.Mock<any, any>> = {
+const mocks: Record<string, jest.Mock<any, any>> = {
   trunk,
   normalize
 } as any;
