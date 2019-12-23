@@ -1,7 +1,14 @@
 import { ensure } from './ensure';
-import { ErrorLabel, ErrorData, EnsureCreateFn, EnsureOptions } from './types';
+import {
+  ErrorLabel,
+  ErrorData,
+  EnsureCreateFn,
+  EnsureOptions,
+  Constructor
+} from './types';
 import { rejects } from './rejects';
 import { throws } from './throws';
+import { isPromise } from 'promist';
 
 export class Errorish<
   L extends ErrorLabel = ErrorLabel,
@@ -12,7 +19,7 @@ export class Errorish<
    * Returns `true` if `error` is an instance of the class with label `label`, if passed.
    */
   public static is<
-    C extends typeof Errorish,
+    C extends Constructor<Errorish>,
     L extends ErrorLabel = ErrorLabel
   >(
     this: C,
@@ -27,26 +34,28 @@ export class Errorish<
       : error.label === label;
   }
   /**
-   * Runs and returns the result of `fn` when `error` is an instance of the class and, optionally, has label `label`.
+   * Runs and returns the result of `fn` only when `error` is an instance of the class and, optionally, has a specific `label`.
    */
   public static recast<
-    C extends typeof Errorish,
+    C extends Constructor<Errorish>,
     T extends Error,
-    U extends Error,
-    L extends ErrorLabel = ErrorLabel
+    U extends Error
   >(
     this: C,
-    fn: (error: InstanceType<C> & Errorish<L>) => U,
+
+    create: (error: InstanceType<C>) => U,
     error: T,
-    label?: L | L[]
+    label?: ErrorLabel | ErrorLabel[]
   ): T | U {
-    return this.is(error, label) ? fn(error) : error;
+    return (this as any).is(error, label)
+      ? create(error as InstanceType<C>)
+      : error;
   }
   /**
    * See `ensure` function.
    */
   public static ensure<
-    C extends typeof Errorish,
+    C extends Constructor<Errorish>,
     T,
     U extends InstanceType<C> = InstanceType<C>
   >(
@@ -64,7 +73,7 @@ export class Errorish<
   /**
    * See `rejects` function.
    */
-  public static rejects<C extends typeof Errorish, T>(
+  public static rejects<C extends Constructor<Errorish>, T>(
     this: C,
     error: T,
     create: EnsureCreateFn<T, InstanceType<C>>,
@@ -75,7 +84,8 @@ export class Errorish<
   /**
    * See `throws` function.
    */
-  public static throws<C extends typeof Errorish, T>(
+  public static throws<C extends Constructor<Errorish>, T>(
+    this: C,
     fn: () => T,
     create: EnsureCreateFn<T, InstanceType<C>>,
     options?: Omit<EnsureOptions, 'Error'> | null
