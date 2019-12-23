@@ -1,3 +1,40 @@
+# [0.5.0](https://github.com/rafamel/errorish/compare/v0.4.0...v0.5.0) (2019-12-23)
+
+
+### Bug Fixes
+
+* **Errorish:** fixes static classes for inheriting classes ([ae9ecf2](https://github.com/rafamel/errorish/commit/ae9ecf2adedec9f66240d81f2dd1f0fcbacca399))
+
+
+### chore
+
+* cleans up sources; begins complete rewrite ([f745eb9](https://github.com/rafamel/errorish/commit/f745eb957b3b69240075f16545c27d796161c1cb))
+
+
+### Code Refactoring
+
+* removes I prefix from type interfaces ([122d668](https://github.com/rafamel/errorish/commit/122d66849bad51b9f7fcc49be2fa8df9501689d9))
+
+
+### Features
+
+* **Errorish:** adds Errorish.raise; modifies recast arguments order ([ebb1f60](https://github.com/rafamel/errorish/commit/ebb1f602107ca2aad45e0c8d7148874d41ca2fbc))
+* adds ensure ([6d0a537](https://github.com/rafamel/errorish/commit/6d0a5375d151c17cdec4e32a740cc2abb7606344))
+* adds Errorish class ([e12df09](https://github.com/rafamel/errorish/commit/e12df0963b51ed5d7cedebbbe5a38bd3bd8f19b9))
+* adds normalize ([a4994af](https://github.com/rafamel/errorish/commit/a4994af3c23dac39709baa2a686d275b9ea4e45f))
+* adds rejects ([3b0c833](https://github.com/rafamel/errorish/commit/3b0c8335ccaf9f2a08dc29e10612dea97f13223a))
+* adds throws ([e73d3d3](https://github.com/rafamel/errorish/commit/e73d3d30275088ebb22c95ac8c2f1b9c13096413))
+* adds types ([3e8d28e](https://github.com/rafamel/errorish/commit/3e8d28ec6e1cd2bcfa74deefa5b83892c73043bc))
+
+
+### BREAKING CHANGES
+
+* Errorish has been almost entirely rewritten. Please check the updated documentation
+-most of its functionality has suffered changes.
+* Type interfaces are no longer prefixed by "I"
+
+
+
 # [0.4.0](https://github.com/rafamel/errorish/compare/v0.3.0...v0.4.0) (2019-05-13)
 
 
