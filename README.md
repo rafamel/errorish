@@ -124,9 +124,13 @@ Errorish.is(error); // true
 Errorish.is(error, 'Label'); // false
 ```
 
-##### `Errorish.recast(fn: (error: Errorish) => Error, error: Error, label?: string | null | Array<string | null>)`
+##### `Errorish.recast(error: Error, create: (error: Errorish) => Error, label?: string | null | Array<string | null>)`
 
-Runs and returns the result of `fn` when `error` is an instance of the class and, optionally, has label `label`.
+Runs and returns the result of `fn` only when `error` is an instance of the class and, optionally, has a specific `label`.
+
+##### `Errorish.raise(fn: () => any, create: (error: Errorish) => Error, label?: string | null | Array<string | null>)`
+
+Calls `recast` and throws its response if `fn` throws or rejects, otherwise returns or throws the same result or error as `fn`.
 
 ##### `Errorish.ensure(error: any, create: (error: any) => Error, options: object): Error`
 
