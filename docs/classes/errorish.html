@@ -57,7 +57,7 @@
 					<a href="errorish.html">Errorish</a>
 				</li>
 			</ul>
-			<h1>Class Errorish&lt;S&gt;</h1>
+			<h1>Class Errorish&lt;L, D, S&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -67,6 +67,12 @@
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
+					<li>
+						<h4>L<span class="tsd-signature-symbol">: </span><a href="../globals.html#errorlabel" class="tsd-signature-type">ErrorLabel</a></h4>
+					</li>
+					<li>
+						<h4>D<span class="tsd-signature-symbol">: </span><a href="../globals.html#errordata" class="tsd-signature-type">ErrorData</a></h4>
+					</li>
 					<li>
 						<h4>S</h4>
 					</li>
@@ -99,6 +105,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="errorish.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="errorish.html#label" class="tsd-kind-icon">label</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="errorish.html#message" class="tsd-kind-icon">message</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="errorish.html#source" class="tsd-kind-icon">source</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="errorish.html#stack" class="tsd-kind-icon">stack</a></li>
@@ -109,14 +116,20 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="errorish.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="errorish.html#root" class="tsd-kind-icon">root</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorish.html#assign" class="tsd-kind-icon">assign</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorish.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorish.html#capture" class="tsd-kind-icon">capture</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorish.html#error-1" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="errorish.html#reproduce" class="tsd-kind-icon">reproduce</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorish.html#root" class="tsd-kind-icon">root</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorish.html#ensure" class="tsd-kind-icon">ensure</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorish.html#is" class="tsd-kind-icon">is</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorish.html#recast" class="tsd-kind-icon">recast</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorish.html#rejects" class="tsd-kind-icon">rejects</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="errorish.html#throws" class="tsd-kind-icon">throws</a></li>
 							</ul>
 						</section>
 					</div>
@@ -128,13 +141,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Errorish<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, source<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">S</a>, data<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Errorish<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, label<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">L</a>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, source<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">S</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L11">Errorish.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L96">src/Errorish.ts:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -143,10 +156,13 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> source: <a href="" class="tsd-signature-type">S</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> label: <a href="" class="tsd-signature-type">L</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">D</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> source: <a href="" class="tsd-signature-type">S</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
@@ -159,15 +175,30 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="data" class="tsd-anchor"></a>
 					<h3>data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">D</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L11">Errorish.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L92">src/Errorish.ts:92</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An optional <code>data</code> field.</p>
+							<p>A <code>data</code> object.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="label" class="tsd-anchor"></a>
+					<h3>label</h3>
+					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">L</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L88">src/Errorish.ts:88</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A label for the Error.</p>
 						</div>
 					</div>
 				</section>
@@ -178,17 +209,17 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Error.message</p>
 						<ul>
-							<li>Defined in /Users/rafamel/Dev/modules/errorish/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:964</li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:974</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="source" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> source</h3>
-					<div class="tsd-signature tsd-kind-icon">source<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">S</a></div>
+					<h3>source</h3>
+					<div class="tsd-signature tsd-kind-icon">source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">S</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L7">Errorish.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L96">src/Errorish.ts:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -205,7 +236,7 @@
 						<p>Inherited from Error.stack</p>
 						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in /Users/rafamel/Dev/modules/errorish/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:965</li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:975</li>
 						</ul>
 					</aside>
 				</section>
@@ -215,7 +246,7 @@
 					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in /Users/rafamel/Dev/modules/errorish/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:974</li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:984</li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +264,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Error.name</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L21">Errorish.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L112">src/Errorish.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -245,90 +276,90 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="root" class="tsd-anchor"></a>
-					<h3>root</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> root<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L27">Errorish.ts:27</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>References <code>source.root</code> is an instance of <code>Errorish</code>; references <code>source</code> if it is an instance of <code>Error</code>; otherwise it references itself.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Error</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="assign" class="tsd-anchor"></a>
-					<h3>assign</h3>
+					<a name="capture" class="tsd-anchor"></a>
+					<h3>capture</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">assign&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, data<span class="tsd-signature-symbol">: </span><a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+						<li class="tsd-signature tsd-kind-icon">capture&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L41">Errorish.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L142">src/Errorish.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Assigns <code>data</code> to the <code>data</code> field and returns itself.</p>
+									<p>Runs <code>Error.captureStackTrace</code> if running in <code>V8</code> to clean up the error stack trace.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>this: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>data: <a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="set" class="tsd-anchor"></a>
-					<h3>set</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">set&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, data<span class="tsd-signature-symbol">: </span><a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="error-1" class="tsd-anchor"></a>
+					<h3>error</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/Errorish.ts#L34">Errorish.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L126">src/Errorish.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sets the <code>data</code> field and returns itself.</p>
+									<p>Returns <code>Errorish.source</code> if it is an <code>Error</code>, otherwise it returns itself.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Error</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="reproduce" class="tsd-anchor"></a>
+					<h3>reproduce</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">reproduce&lt;T, D&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, data<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[&quot;label&quot;]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T[&quot;source&quot;]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"data"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L132">src/Errorish.ts:132</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clones the instance and assigns it a new <code>data</code> field.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>D<span class="tsd-signature-symbol">: </span><a href="../globals.html#errordata" class="tsd-signature-type">ErrorData</a></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -337,7 +368,298 @@
 									<h5>this: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5>data: <a href="../interfaces/ioftype.html" class="tsd-signature-type">IOfType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="" class="tsd-signature-type">D</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[&quot;label&quot;]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T[&quot;source&quot;]</span><span class="tsd-signature-symbol">&gt;</span>
+								<span class="tsd-signature-symbol"> &amp; </span>
+								<span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"data"</span><span class="tsd-signature-symbol">&gt;</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="root" class="tsd-anchor"></a>
+					<h3>root</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L118">src/Errorish.ts:118</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>References the first <code>Errorish</code> in the <code>Errorish.source</code> chain.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="ensure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> ensure</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">ensure&lt;C, T, U&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, create<span class="tsd-signature-symbol">: </span><a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T extends InstanceType&lt;C&gt; ? T : U</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L48">src/Errorish.ts:48</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <code>ensure</code> function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>T</h4>
+								</li>
+								<li>
+									<h4>U<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">C</span></h5>
+								</li>
+								<li>
+									<h5>error: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5>create: <a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T extends InstanceType&lt;C&gt; ? T : U</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="is" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is&lt;C, L&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, label<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">error</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">Errorish</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L14">src/Errorish.ts:14</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns <code>true</code> if <code>error</code> is an instance of the class with label <code>label</code>, if passed.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>L<span class="tsd-signature-symbol">: </span><a href="../globals.html#errorlabel" class="tsd-signature-type">ErrorLabel</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">C</span></h5>
+								</li>
+								<li>
+									<h5>error: <span class="tsd-signature-type">Error</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> label: <span class="tsd-signature-type">L</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">error</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">Errorish</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="recast" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> recast</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">recast&lt;C, T, U, L&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, label<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">U</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L32">src/Errorish.ts:32</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Runs and returns the result of <code>fn</code> when <code>error</code> is an instance of the class and, optionally, has label <code>label</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></h4>
+								</li>
+								<li>
+									<h4>U<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></h4>
+								</li>
+								<li>
+									<h4>L<span class="tsd-signature-symbol">: </span><a href="../globals.html#errorlabel" class="tsd-signature-type">ErrorLabel</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">C</span></h5>
+								</li>
+								<li>
+									<h5>fn: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>error: <span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="errorish.html" class="tsd-signature-type">Errorish</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">&gt;</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">U</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>error: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> label: <span class="tsd-signature-type">L</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">L</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">U</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="rejects" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> rejects</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">rejects&lt;C, T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, create<span class="tsd-signature-symbol">: </span><a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L67">src/Errorish.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <code>rejects</code> function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">C</span></h5>
+								</li>
+								<li>
+									<h5>error: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5>create: <a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="throws" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> throws</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">throws&lt;C, T&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, create<span class="tsd-signature-symbol">: </span><a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/Errorish.ts#L78">src/Errorish.ts:78</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>See <code>throws</code> function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>C<span class="tsd-signature-symbol">: </span><a href="errorish.html" class="tsd-signature-type">Errorish</a></h4>
+								</li>
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fn: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>create: <a href="../globals.html#ensurecreatefn" class="tsd-signature-type">EnsureCreateFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">InstanceType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ensureoptions.html" class="tsd-signature-type">EnsureOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"Error"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
@@ -367,6 +689,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="errorish.html#data" class="tsd-kind-icon">data</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="errorish.html#label" class="tsd-kind-icon">label</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="errorish.html#message" class="tsd-kind-icon">message</a>
 							</li>
@@ -382,42 +707,60 @@
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="errorish.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="errorish.html#capture" class="tsd-kind-icon">capture</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="errorish.html#error-1" class="tsd-kind-icon">error</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="errorish.html#reproduce" class="tsd-kind-icon">reproduce</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="errorish.html#root" class="tsd-kind-icon">root</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="errorish.html#assign" class="tsd-kind-icon">assign</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="errorish.html#ensure" class="tsd-kind-icon">ensure</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="errorish.html#set" class="tsd-kind-icon">set</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="errorish.html#is" class="tsd-kind-icon">is</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="errorish.html#recast" class="tsd-kind-icon">recast</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="errorish.html#rejects" class="tsd-kind-icon">rejects</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="errorish.html#throws" class="tsd-kind-icon">throws</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/iconstructor.html" class="tsd-kind-icon">IConstructor</a>
+						<a href="../interfaces/constructor.html" class="tsd-kind-icon">Constructor</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/icoreoptions.html" class="tsd-kind-icon">ICore<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/inormalizeoptions.html" class="tsd-kind-icon">INormalize<wbr>Options</a>
+						<a href="../interfaces/ensurecreateoptions.html" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/ioftype.html" class="tsd-kind-icon">IOf<wbr>Type</a>
+						<a href="../interfaces/ensureoptions.html" class="tsd-kind-icon">Ensure<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/irejectionoptions.html" class="tsd-kind-icon">IRejection<wbr>Options</a>
+						<a href="../interfaces/normalizeoptions.html" class="tsd-kind-icon">Normalize<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iscope.html" class="tsd-kind-icon">IScope</a>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../globals.html#ensurecreatefn" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Fn</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#scopes" class="tsd-kind-icon">scopes</a>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#errordata" class="tsd-kind-icon">Error<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#values" class="tsd-kind-icon">values</a>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#errorlabel" class="tsd-kind-icon">Error<wbr>Label</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../globals.html#normalerror" class="tsd-kind-icon">Normal<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#ensure" class="tsd-kind-icon">ensure</a>
@@ -425,26 +768,11 @@
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#normalize" class="tsd-kind-icon">normalize</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#rejects" class="tsd-kind-icon">rejects</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#stringify" class="tsd-kind-icon">stringify</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#throws" class="tsd-kind-icon">throws</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#trunk" class="tsd-kind-icon">trunk</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#defaults" class="tsd-kind-icon">defaults</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#root" class="tsd-kind-icon">root</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="../globals.html#scope" class="tsd-kind-icon">scope</a>
 					</li>
 				</ul>
 			</nav>
@@ -463,6 +791,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -511,7 +840,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

@@ -14,83 +14,23 @@
 
 ## Use cases
 
-There are essentially three use cases for `errorish`:
+There are three main use cases for *Errorish*:
 
+* [You need to make sure an `Error` has a `message`, `name`, and `stack` properties.](#normalizing-errors)
 * [You need to make sure *any* object is actually an error, as expected.](#ensuring-any-is-an-error--otherwise-create-it)
-* [You need to make sure an *Error* has a `message`, `name`, and `stack` properties.](#normalizing-errors)
-* [You want to catch errors and throw a different *Error*:](#catching-and-throwing-errors-to-be-made-public)
-  * with a different message and specific data that might be made public,
-  * while preserving information about the original exception that caused your program to fail,
-  * on different levels of the call stack, but keeping only the first one of its kind throwed.
+* [You want to extend the `Error` class to store an identifying `label`, some `data` fields, and/or the `source` exception that caused your program to fail](#errorish-class)
 
 ## Documentation
 
-These are all of `errorish`'s functions -[see docs:](https://rafamel.github.io/errorish/globals.html)
+These are all of *Errorish*'s functions and classes -[see docs:](https://rafamel.github.io/errorish/globals.html)
 
-* [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) ensures `any` is an `Error`, otherwise creating one -optionally, it can also have a normalization step, which is [enabled by default.](https://rafamel.github.io/errorish/globals.html#defaults)
 * [`normalize`](https://rafamel.github.io/errorish/globals.html#normalize) ensures an `Error` has a `message`, `name`, and `stack` properties -filling them if they're not defined.
+* [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) ensures `any` is an `Error`, otherwise creating one -it can also have a normalization step, which is enabled by default.
 * [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) returns a promise rejection with an error, having called `ensure` on it.
 * [`throws`](https://rafamel.github.io/errorish/globals.html#throws) takes a function and returns its value if it doesn't throw; otherwise, it will call `ensure` on the thrown error and throw it.
-
-[Options](https://rafamel.github.io/errorish/interfaces/icoreoptions.html) can be passed directly to these functions, though they will be merged in all cases with the [defaults](https://rafamel.github.io/errorish/globals.html#defaults) -you can use [`scope.set`](https://rafamel.github.io/errorish/globals.html#scope) to set these.
-
-Additionally, you might want to create particular [`scopes` with a different set of default options](https://rafamel.github.io/errorish/globals.html#scope) depending on your use case.
+* [`Errorish`](https://rafamel.github.io/errorish/classes/errorish.html) is a *class* with some conveniency methods relating to its `label`, `data`, and `source` fields.
 
 ## Usage
-
-### Ensuring `any` is an error -otherwise create it
-
-#### Return an error from any error-*ish*
-
-```javascript
-import { ensure } from 'errorish';
-
-ensure(Error('Foo bar')); // Error: Foo bar
-
-ensure('Foo bar'); // Errorish: Foo bar
-ensure({ message: 'Foo bar' }); // Errorish: Foo bar
-
-// As this is a number, it will use the default message
-ensure(10); // Errorish: An error occurred
-// We can also allow numbers -or any other type- to be stringified
-ensure(10, { allow: ['string', 'number'] }); // Errorish: 10
-
-// Errors will always preserve the original source
-ensure(10).source; // 10
-
-// Additionally, we can pass some data to errors
-ensure(10, null, { foo: 'bar' }).data; // { foo: 'bar' }
-```
-
-#### Throw or reject with an error-*ish*
-
-[`throws`](https://rafamel.github.io/errorish/globals.html#throws) and [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) run [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) over your error-*ish* and throw or reject with it -these are just convenience functions over `ensure`:
-
-```javascript
-import { rejects, throws, ensure } from 'errorish';
-
-/* rejects */
-Promise.reject(10).catch(rejects) // Reject<Errorish: An error occurred>
-
-// Options for `rejects` and `throws` also take a `case` field which,
-// if false, will make them to have a void response
-Promise.reject(10).catch(err => rejects(err, { case: false })); // Resolve<undefined>
-
-/* throws */
-throws(() => { throw 10; }); // Throw<Errorish: An error occurred>
-
-// The above is equivalent to:
-try {
-  throw 10;
-} catch(err) {
-  throw ensure(err);
-}
-
-// it can also be passed an async function
-throws(async () => { throw 10; }); // Reject<Errorish: An error occurred>
-
-throws(() => 10); // Return<10>
-```
 
 ### Normalizing errors
 
@@ -103,52 +43,129 @@ normalize(Error()); // Error: An error occurred
 normalize(Error(), { message: 'Foo bar' }); // Error: Foo bar
 ```
 
-### Catching and throwing errors to be made public
+### Ensuring *any* is an error -otherwise create it
+
+See [`ensure`.](https://rafamel.github.io/errorish/globals.html#ensure)
+
+#### Return an error from any error-*ish*
 
 ```javascript
-import { Errorish, scope } from 'errorish';
+import { ensure } from 'errorish';
 
-// As we might want to preserve the defaults for the root scope,
-// we'll create a new scope we'll name `ish`.
-// For that scope, we'll set Errorish as the class errors
-// will be ensured against, so even when an actual `Error` is passed,
-// if not an `Errorish`, a new one will be created.
-const ish = scope.set('ish', { Error: Errorish, allow: [] });
+ensure(Error('Foo bar')); // Error: Foo bar
 
-function authorize() {
-  throw Error(`Error with details I'd rather not expose`);
+ensure('Foo bar'); // Error: Foo bar
+ensure({ message: 'Foo bar' }); // Error: Foo bar
+
+// As this is a number, it will use the default message
+ensure(10); // Error: An error occurred
+
+// We can also allow numbers -or any other type- to be stringified
+ensure(10, { allow: ['string', 'number'] }); // Error: 10
+
+// Or otherwise, provide a creation function
+ensure(10, (err) => Error('10 is not an error')) // Error: 10 is not an error
+```
+
+#### Throw or reject from an error-*ish*
+
+[`throws`](https://rafamel.github.io/errorish/globals.html#throws) and [`rejects`](https://rafamel.github.io/errorish/globals.html#rejects) run [`ensure`](https://rafamel.github.io/errorish/globals.html#ensure) over your error-*ish* and throw or reject with it -these are just convenience functions over `ensure`:
+
+```javascript
+import { rejects, throws, ensure } from 'errorish';
+
+Promise.reject(10).catch(rejects) // Reject<Error: An error occurred>
+
+throws(() => { throw 10; }); // Throw<Error: An error occurred>
+
+// The above is equivalent to:
+try {
+  throw 10;
+} catch(err) {
+  throw ensure(err);
 }
 
-function example() {
-  try {
-    authorize();
-  } catch (err) {
-    // As an `Error` is not an instance of `Errorish`, one will be
-    // created with message `Server failed running your example`
-    // and data `{ code: 500 }`
-    throw ish.ensure(
-      err,
-      { message: `Authorization for example failed` },
-      { code: 401 }
-    );
-  }
-}
+// it can also be passed an async function
+throws(async () => { throw 10; }); // Reject<Error: An error occurred>
+```
 
-function server() {
-  try {
-    example();
-  } catch (err) {
-    // As example already throwed an `Errorish`, the same one will be
-    // preserved, ignoring the more general-purpose message and code
-    throw ish.ensure(err, { message: 'Server failed' }, { code: 500 });
-  }
-}
+### `Errorish` class
+
+A *class* with some conveniency methods relating to its `label`, `data`, and `source` fields -see [`Errorish`.](https://rafamel.github.io/errorish/classes/errorish.html).
+
+#### Constructor
+
+The `Errorish` constructor takes in the optional arguments `message`, `label`, `data`, and `source`.
+
+```javascript
+import { Errorish } from 'errorish';
+
+const fn = () => { throw Error('Source'); };
 
 try {
-  server();
-} catch (e) {
-  console.log(e.message); // Authorization for example failed
-  console.log(e.data); // { code: 401 }
-  console.log(e.source); // Error: Error with details I'd rather not expose
+  fn();
+} catch(source) {
+  throw new Errorish('Message', 'label', { code: 401 }, source);
 }
 ```
+
+#### Static methods
+
+##### `Errorish.is(error: Error, label?: string | null | Array<string | null>): boolean`
+
+Returns `true` if `error` is an instance of the class with label `label`, if passed.
+
+```javascript
+import { Errorish } from 'errorish';
+
+const error = new Errorish();
+
+Errorish.is(error); // true
+Errorish.is(error, 'Label'); // false
+```
+
+##### `Errorish.recast(fn: (error: Errorish) => Error, error: Error, label?: string | null | Array<string | null>)`
+
+Runs and returns the result of `fn` when `error` is an instance of the class and, optionally, has label `label`.
+
+##### `Errorish.ensure(error: any, create: (error: any) => Error, options: object): Error`
+
+Same as [`ensure`,](#ensuring-any-is-an-error--otherwise-create-it) though it will ensure against the `error` being an instance of `Errorish`.
+
+##### `Errorish.rejects(error: any, create: (error: any) => Error, options: object): Error`
+
+Same as [`rejects`,](#ensuring-any-is-an-error--otherwise-create-it) though it will ensure against the `error` being an instance of `Errorish`.
+
+##### `Errorish.throws(error: () => any, create: (error: any) => Error, options: object): Error`
+
+Same as [`throws`,](#ensuring-any-is-an-error--otherwise-create-it) though it will ensure against the `error` being an instance of `Errorish`.
+
+#### Instance methods
+
+##### `errorish.root(): Errorish`
+
+References the first `Errorish` in the `Errorish.source` chain.
+
+```javascript
+import { Errorish } from 'errorish';
+
+const source = Error();
+const a = new Errorish(null, null, null, source);
+const b = new Errorish(null, null, null, a);
+const c = new Errorish(null, null, null, b);
+
+// Will return `a`
+c.root();
+```
+
+##### `errorish.error(): Error`
+
+Returns `Errorish.source` if it is an `Error`, otherwise it returns itself.
+
+##### `errorish.reproduce(data?: object): Errorish`
+
+Clones the instance and assigns it a new `data` field.
+
+##### `errorish.capture(): Errorish`
+
+Runs `Error.captureStackTrace` if running in `V8` to clean up the error stack trace.

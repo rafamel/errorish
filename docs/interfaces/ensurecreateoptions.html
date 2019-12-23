@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>INormalizeOptions | errorish 0.4.0</title>
+	<title>EnsureCreateOptions | errorish 0.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="inormalizeoptions.html">INormalizeOptions</a>
+					<a href="ensurecreateoptions.html">EnsureCreateOptions</a>
 				</li>
 			</ul>
-			<h1>Interface INormalizeOptions</h1>
+			<h1>Interface EnsureCreateOptions</h1>
 		</div>
 	</div>
 </header>
@@ -68,12 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">INormalizeOptions</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="icoreoptions.html" class="tsd-signature-type">ICoreOptions</a>
-							</li>
-						</ul>
+						<span class="target">EnsureCreateOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -84,8 +79,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inormalizeoptions.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inormalizeoptions.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ensurecreateoptions.html#allow" class="tsd-kind-icon">allow</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,32 +88,18 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="message" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="allow" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> allow</h3>
+					<div class="tsd-signature tsd-kind-icon">allow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/types.ts#L40">types.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/081c441/src/types/options.ts#L21">src/types/options.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><code>message</code> to be used when normalizing errors that don&#39;t have one</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/0235c5b/src/types.ts#L44">types.ts:44</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p><code>name</code> to be used when normalizing errors that don&#39;t have one, if its constructor doesn&#39;t have one.</p>
+							<p>Array of types to allow as error <code>message</code>, given successful stringification.
+							Default: <code>[&#39;string&#39;]</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -139,40 +119,37 @@
 						<a href="../classes/errorish.html" class="tsd-kind-icon">Errorish</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="iconstructor.html" class="tsd-kind-icon">IConstructor</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="icoreoptions.html" class="tsd-kind-icon">ICore<wbr>Options</a>
+						<a href="constructor.html" class="tsd-kind-icon">Constructor</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="inormalizeoptions.html" class="tsd-kind-icon">INormalize<wbr>Options</a>
+						<a href="ensurecreateoptions.html" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="inormalizeoptions.html#message" class="tsd-kind-icon">message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="inormalizeoptions.html#name" class="tsd-kind-icon">name</a>
+								<a href="ensurecreateoptions.html#allow" class="tsd-kind-icon">allow</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="ioftype.html" class="tsd-kind-icon">IOf<wbr>Type</a>
+						<a href="ensureoptions.html" class="tsd-kind-icon">Ensure<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="irejectionoptions.html" class="tsd-kind-icon">IRejection<wbr>Options</a>
+						<a href="normalizeoptions.html" class="tsd-kind-icon">Normalize<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="iscope.html" class="tsd-kind-icon">IScope</a>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../globals.html#ensurecreatefn" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Fn</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#scopes" class="tsd-kind-icon">scopes</a>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#errordata" class="tsd-kind-icon">Error<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#values" class="tsd-kind-icon">values</a>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#errorlabel" class="tsd-kind-icon">Error<wbr>Label</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../globals.html#normalerror" class="tsd-kind-icon">Normal<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#ensure" class="tsd-kind-icon">ensure</a>
@@ -180,26 +157,11 @@
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#normalize" class="tsd-kind-icon">normalize</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#rejects" class="tsd-kind-icon">rejects</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#stringify" class="tsd-kind-icon">stringify</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#throws" class="tsd-kind-icon">throws</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#trunk" class="tsd-kind-icon">trunk</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#defaults" class="tsd-kind-icon">defaults</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#root" class="tsd-kind-icon">root</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="../globals.html#scope" class="tsd-kind-icon">scope</a>
 					</li>
 				</ul>
 			</nav>
@@ -218,6 +180,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -266,7 +229,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
