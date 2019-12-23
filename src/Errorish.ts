@@ -42,14 +42,34 @@ export class Errorish<
     U extends Error
   >(
     this: C,
-
-    create: (error: InstanceType<C>) => U,
     error: T,
+    create: (error: InstanceType<C>) => U,
     label?: ErrorLabel | ErrorLabel[]
   ): T | U {
     return (this as any).is(error, label)
       ? create(error as InstanceType<C>)
       : error;
+  }
+  /**
+   * Calls `recast` and throws its response if `fn` throws or rejects, otherwise returns or throws the same result or error as `fn`.
+   */
+  public static raise<C extends Constructor<Errorish>, T>(
+    this: C,
+    fn: () => T,
+    create: (error: InstanceType<C>) => Error,
+    label?: ErrorLabel | ErrorLabel[]
+  ): T {
+    try {
+      const response = fn();
+      if (isPromise(response)) {
+        return response.catch(async (err) => {
+          throw (this as any).recast(err, create, label);
+        }) as any;
+      }
+      return response;
+    } catch (err) {
+      throw (this as any).recast(err, create, label);
+    }
   }
   /**
    * See `ensure` function.

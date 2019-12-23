@@ -96,41 +96,161 @@ describe(`static methods`, () => {
     });
   });
   describe(`recast`, () => {
-    test(`calls and returns fn wo/ labels`, () => {
+    test(`calls and returns create wo/ labels`, () => {
       const source = new Errorish('Foo');
       const response = Error('Bar');
-      const fn = jest.fn();
-      fn.mockImplementation(() => response);
+      const create = jest.fn();
+      create.mockImplementation(() => response);
 
-      expect(Errorish.recast(fn, source)).toBe(response);
-      expect(fn).toHaveBeenCalledWith(source);
-      expect(fn).toHaveBeenCalledTimes(1);
+      expect(Errorish.recast(source, create)).toBe(response);
+      expect(create).toHaveBeenCalledWith(source);
+      expect(create).toHaveBeenCalledTimes(1);
     });
-    test(`calls and returns fn w/ labels`, () => {
+    test(`calls and returns create w/ labels`, () => {
       const source = new Errorish('Foo');
       const response = Error('Bar');
-      const fn = jest.fn();
-      fn.mockImplementation(() => response);
+      const create = jest.fn();
+      create.mockImplementation(() => response);
 
-      expect(Errorish.recast(fn, source, null)).toBe(response);
-      expect(fn).toHaveBeenCalledWith(source);
-      expect(fn).toHaveBeenCalledTimes(1);
+      expect(Errorish.recast(source, create, null)).toBe(response);
+      expect(create).toHaveBeenCalledWith(source);
+      expect(create).toHaveBeenCalledTimes(1);
     });
-    test(`doesn't call fn wo/ labels`, () => {
+    test(`doesn't call create wo/ labels`, () => {
       const source = Error('Foo');
-      const fn = jest.fn();
-      fn.mockImplementation(() => Error('Bar'));
+      const create = jest.fn();
+      create.mockImplementation(() => Error('Bar'));
 
-      expect(Errorish.recast(fn, source)).toBe(source);
-      expect(fn).not.toHaveBeenCalled();
+      expect(Errorish.recast(source, create)).toBe(source);
+      expect(create).not.toHaveBeenCalled();
     });
-    test(`doesn't call fn w/ labels`, () => {
+    test(`doesn't call create w/ labels`, () => {
       const source = new Errorish('Foo', 'Baz');
-      const fn = jest.fn();
-      fn.mockImplementation(() => Error('Bar'));
+      const create = jest.fn();
+      create.mockImplementation(() => Error('Bar'));
 
-      expect(Errorish.recast(fn, source, null)).toBe(source);
-      expect(fn).not.toHaveBeenCalled();
+      expect(Errorish.recast(source, create, null)).toBe(source);
+      expect(create).not.toHaveBeenCalled();
+    });
+  });
+  describe(`raise`, () => {
+    describe(`sync`, () => {
+      test(`returns fn response`, () => {
+        const fn = (): string => 'foo';
+        const create = jest.fn();
+
+        expect(Errorish.raise(fn, create)).toBe('foo');
+        expect(create).not.toHaveBeenCalled();
+      });
+      test(`calls and returns create wo/ labels`, () => {
+        const source = new Errorish('Foo');
+        const response = Error('Bar');
+        const create = jest.fn();
+        create.mockImplementation(() => response);
+        const fn = (): never => {
+          throw source;
+        };
+
+        expect(() => Errorish.raise(fn, create)).toThrowError(response);
+        expect(create).toHaveBeenCalledWith(source);
+        expect(create).toHaveBeenCalledTimes(1);
+      });
+      test(`calls and returns create w/ labels`, () => {
+        const source = new Errorish('Foo');
+        const response = Error('Bar');
+        const create = jest.fn();
+        create.mockImplementation(() => response);
+        const fn = (): never => {
+          throw source;
+        };
+
+        expect(() => Errorish.raise(fn, create, null)).toThrowError(response);
+        expect(create).toHaveBeenCalledWith(source);
+        expect(create).toHaveBeenCalledTimes(1);
+      });
+      test(`doesn't call create wo/ labels`, () => {
+        const source = Error('Foo');
+        const create = jest.fn();
+        create.mockImplementation(() => Error('Bar'));
+        const fn = (): never => {
+          throw source;
+        };
+
+        expect(() => Errorish.raise(fn, create)).toThrowError(source);
+        expect(create).not.toHaveBeenCalled();
+      });
+      test(`doesn't call create w/ labels`, () => {
+        const source = new Errorish('Foo', 'Baz');
+        const create = jest.fn();
+        create.mockImplementation(() => Error('Bar'));
+        const fn = (): never => {
+          throw source;
+        };
+
+        expect(() => Errorish.raise(fn, create, null)).toThrowError(source);
+        expect(create).not.toHaveBeenCalled();
+      });
+    });
+    describe(`async`, () => {
+      test(`returns fn response`, async () => {
+        const fn = async (): Promise<string> => 'foo';
+        const create = jest.fn();
+
+        await expect(Errorish.raise(fn, create)).resolves.toBe('foo');
+        expect(create).not.toHaveBeenCalled();
+      });
+      test(`calls and returns create wo/ labels`, async () => {
+        const source = new Errorish('Foo');
+        const response = Error('Bar');
+        const create = jest.fn();
+        create.mockImplementation(() => response);
+        const fn = async (): Promise<never> => {
+          throw source;
+        };
+
+        await expect(Errorish.raise(fn, create)).rejects.toThrowError(response);
+        expect(create).toHaveBeenCalledWith(source);
+        expect(create).toHaveBeenCalledTimes(1);
+      });
+      test(`calls and returns create w/ labels`, async () => {
+        const source = new Errorish('Foo');
+        const response = Error('Bar');
+        const create = jest.fn();
+        create.mockImplementation(() => response);
+        const fn = async (): Promise<never> => {
+          throw source;
+        };
+
+        await expect(Errorish.raise(fn, create, null)).rejects.toThrowError(
+          response
+        );
+        expect(create).toHaveBeenCalledWith(source);
+        expect(create).toHaveBeenCalledTimes(1);
+      });
+      test(`doesn't call create wo/ labels`, async () => {
+        const source = Error('Foo');
+        const create = jest.fn();
+        create.mockImplementation(() => Error('Bar'));
+        const fn = async (): Promise<never> => {
+          throw source;
+        };
+
+        await expect(Errorish.raise(fn, create)).rejects.toThrowError(source);
+        expect(create).not.toHaveBeenCalled();
+      });
+      test(`doesn't call create w/ labels`, async () => {
+        const source = new Errorish('Foo', 'Baz');
+        const create = jest.fn();
+        create.mockImplementation(() => Error('Bar'));
+        const fn = async (): Promise<never> => {
+          throw source;
+        };
+
+        await expect(Errorish.raise(fn, create, null)).rejects.toThrowError(
+          source
+        );
+        expect(create).not.toHaveBeenCalled();
+      });
     });
   });
   describe(`ensure`, () => {
