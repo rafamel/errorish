@@ -62,7 +62,7 @@
     "url": "https://github.com/rafamel/errorish/issues"
   },
   "devDependencies": {
-    "@pika/pack": "^0.4.0",
+    "@pika/pack": "^0.5.0",
     "@pika/plugin-build-web": "^0.8.1",
     "@pika/plugin-standard-pkg": "^0.8.1",
     "@riseup/library": "^0.5.0",
