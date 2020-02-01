@@ -67,7 +67,7 @@
     "@pika/plugin-standard-pkg": "^0.8.1",
     "@riseup/library": "^0.5.0",
     "@riseup/tooling": "^0.5.0",
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^25.0.0",
     "@zerollup/ts-transform-paths": "^1.7.3",
     "coveralls": "^3.0.7",
     "husky": "^3.0.9",
