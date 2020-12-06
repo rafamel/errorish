@@ -1,4 +1,4 @@
-import { isPromise, LazyPromist } from 'promist';
+import { isPromiseLike, LazyPromist } from 'promist';
 import { ensure } from './ensure';
 import { rejects } from './rejects';
 import { EnsureCreateOptions, EnsureCreateFn, EnsureOptions } from './types';
@@ -13,12 +13,14 @@ export function throws<T>(
 ): T {
   try {
     const response = fn();
-    if (!isPromise(response)) return response;
+    if (!isPromiseLike(response)) return response;
 
     // if it is a promise, in case response was a lazy promise
     return LazyPromist.from(() => {
-      return response.catch((err) => rejects(err, create, options));
-    }).then((value) => value) as typeof response;
+      return Promise.resolve(response).catch((err) =>
+        rejects(err, create, options)
+      );
+    }).then((value) => value) as any;
   } catch (err) {
     throw ensure(err, create, options);
   }

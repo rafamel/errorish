@@ -8,7 +8,7 @@ import {
 } from './types';
 import { rejects } from './rejects';
 import { throws } from './throws';
-import { isPromise } from 'promist';
+import { isPromiseLike } from 'promist';
 
 export class Errorish<
   L extends ErrorLabel = ErrorLabel,
@@ -61,8 +61,8 @@ export class Errorish<
   ): T {
     try {
       const response = fn();
-      if (isPromise(response)) {
-        return response.catch(async (err) => {
+      if (isPromiseLike(response)) {
+        return Promise.resolve(response).catch(async (err) => {
           throw (this as any).recast(err, create, label);
         }) as any;
       }
@@ -87,7 +87,7 @@ export class Errorish<
     return ensure<T, U, InstanceType<C>>(
       error,
       create,
-      Object.assign({}, options, { Error: this })
+      Object.assign({}, options, { Error: this as any })
     );
   }
   /**
