@@ -1,5 +1,6 @@
 import { Constructor, TypeGuard, UnaryFn } from 'type-core';
 import { ErrorLabel, ErrorData } from './definitions';
+import { capture } from './utils';
 import { ensure, EnsureOptions } from './utils/ensure';
 import { rejects } from './utils/rejects';
 import { throws } from './utils/throws';
@@ -164,10 +165,6 @@ export class Errorish<
    * Runs `Error.captureStackTrace` if running in `V8` to clean up the error stack trace.
    */
   public capture<T extends Errorish>(this: T): T {
-    /* istanbul ignore next */
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
-    }
-    return this;
+    return capture(this);
   }
 }
