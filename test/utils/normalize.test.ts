@@ -1,4 +1,4 @@
-import { normalize } from '~/normalize';
+import { normalize } from '~/utils/normalize';
 
 describe(`name`, () => {
   test(`keeps name if it exists`, () => {

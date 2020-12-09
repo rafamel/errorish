@@ -1,12 +1,4 @@
 /**
- * A constructor for `T`.
- */
-export interface Constructor<T> {
-  new (...args: any[]): T;
-  prototype: T;
-}
-
-/**
  * Error label type. See `Errorish.label`.
  */
 export type ErrorLabel = string | null;

@@ -1,11 +1,11 @@
 import { Errorish } from '~/Errorish';
-import { ensure } from '~/ensure';
-import { rejects } from '~/rejects';
-import { throws } from '~/throws';
+import { ensure } from '~/utils/ensure';
+import { rejects } from '~/utils/rejects';
+import { throws } from '~/utils/throws';
 
-jest.mock('~/ensure');
-jest.mock('~/rejects');
-jest.mock('~/throws');
+jest.mock('~/utils/ensure');
+jest.mock('~/utils/rejects');
+jest.mock('~/utils/throws');
 
 const mocks = {
   ensure: ensure as jest.Mock<any, any>,

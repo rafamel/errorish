@@ -1,14 +1,8 @@
-import { ensure } from './ensure';
-import {
-  ErrorLabel,
-  ErrorData,
-  EnsureCreateFn,
-  EnsureOptions,
-  Constructor
-} from './types';
-import { rejects } from './rejects';
-import { throws } from './throws';
-import { isPromiseLike } from 'promist';
+import { Constructor, TypeGuard, UnaryFn } from 'type-core';
+import { ErrorLabel, ErrorData } from './definitions';
+import { ensure, EnsureOptions } from './utils/ensure';
+import { rejects } from './utils/rejects';
+import { throws } from './utils/throws';
 
 export class Errorish<
   L extends ErrorLabel = ErrorLabel,
@@ -61,7 +55,7 @@ export class Errorish<
   ): T {
     try {
       const response = fn();
-      if (isPromiseLike(response)) {
+      if (TypeGuard.isPromiseLike(response)) {
         return Promise.resolve(response).catch(async (err) => {
           throw (this as any).recast(err, create, label);
         }) as any;
@@ -81,7 +75,7 @@ export class Errorish<
   >(
     this: C,
     error: T,
-    create: EnsureCreateFn<T, U>,
+    create: UnaryFn<T, U>,
     options?: Omit<EnsureOptions, 'Error'> | null
   ): T extends InstanceType<C> ? T : U {
     return ensure<T, U, InstanceType<C>>(
@@ -96,7 +90,7 @@ export class Errorish<
   public static rejects<C extends Constructor<Errorish>, T>(
     this: C,
     error: T,
-    create: EnsureCreateFn<T, InstanceType<C>>,
+    create: UnaryFn<T, InstanceType<C>>,
     options?: Omit<EnsureOptions, 'Error'> | null
   ): Promise<never> {
     return rejects(error, create, Object.assign({}, options, { Error: this }));
@@ -107,7 +101,7 @@ export class Errorish<
   public static throws<C extends Constructor<Errorish>, T>(
     this: C,
     fn: () => T,
-    create: EnsureCreateFn<T, InstanceType<C>>,
+    create: UnaryFn<T, InstanceType<C>>,
     options?: Omit<EnsureOptions, 'Error'> | null
   ): T {
     return throws(fn, create, Object.assign({}, options, { Error: this }));

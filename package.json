@@ -77,7 +77,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "promist": "^4.0.0"
+    "type-core": "^0.6.0"
   },
   "@pika/pack": {
     "pipeline": [

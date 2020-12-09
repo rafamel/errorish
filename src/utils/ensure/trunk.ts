@@ -1,10 +1,11 @@
 import { stringify } from './stringify';
-import { normalize } from '~/normalize';
-import { EnsureOptions, EnsureCreateFn, EnsureCreateOptions } from '~/types';
+import { normalize } from '../normalize';
+import { EnsureCreateOptions, EnsureOptions } from './ensure';
+import { UnaryFn } from 'type-core';
 
 export function trunk(
   error: any,
-  create: Required<EnsureCreateOptions> | EnsureCreateFn,
+  create: Required<EnsureCreateOptions> | UnaryFn<any, Error>,
   options: Required<EnsureOptions>
 ): Error {
   if (!(error instanceof options.Error)) {

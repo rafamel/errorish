@@ -1,4 +1,4 @@
-import { stringify } from '~/ensure/stringify';
+import { stringify } from '~/utils/ensure/stringify';
 
 test(`string`, () => {
   expect(stringify('foo')).toBe('foo');

@@ -1,7 +1,7 @@
-import { ensure } from '~/ensure';
-import { normalize } from '~/normalize';
+import { ensure } from '~/utils/ensure';
+import { normalize } from '~/utils/normalize';
 
-jest.mock('~/normalize');
+jest.mock('~/utils/normalize');
 
 const mocks = {
   normalize: normalize as jest.Mock<any, any>

@@ -1,7 +1,7 @@
-import { rejects } from '~/rejects';
-import { ensure } from '~/ensure';
+import { rejects } from '~/utils/rejects';
+import { ensure } from '~/utils/ensure';
 
-jest.mock('~/ensure');
+jest.mock('~/utils/ensure');
 
 const mocks = {
   ensure: ensure as jest.Mock<any, any>
