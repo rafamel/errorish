@@ -1,5 +1,3 @@
-import { NormalError } from '../definitions';
-
 export interface NormalizeOptions {
   /**
    * Error `message` to be used when normalizing errors that don't have one.
@@ -12,6 +10,11 @@ export interface NormalizeOptions {
    */
   name?: string;
 }
+
+/**
+ * A normalized `Error`. See `normalize`.
+ */
+export type NormalError<T extends Error = Error> = T & Record<'stack', string>;
 
 /**
  * Normalizes an Error -it assumes an instance of Error is passed. It guarantees the error will have a `name`, `message`, and `stack` properties.
