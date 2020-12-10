@@ -11,7 +11,7 @@ export interface EnsureOptions<E extends Error = Error> {
   normalize?: boolean | NormalizeOptions;
   /**
    * Whether to use `Error.captureStackTrace` if running in `V8` to clean up the error stack trace when a new `Error` is created.
-   * Default: `true`.
+   * Default: `false`.
    */
   capture?: boolean;
   /**
@@ -35,7 +35,7 @@ export function ensure<T, U extends Error = Error, E extends Error = Error>(
     Object.assign(
       {
         normalize: true,
-        capture: true,
+        capture: false,
         Error: Error
       },
       options

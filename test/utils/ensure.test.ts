@@ -141,14 +141,14 @@ test(`normalization: normalizes for create function`, () => {
   assert(ensure(Error(), () => Error(), { normalize: true }) === err);
   assert(ensure('foo', () => Error(), { normalize: true }) === err);
 });
-test(`capture: captures new errors by default`, () => {
+test(`capture: doesn't capture new errors by default`, () => {
   const err1 = ensure('foo');
   assert(err1.stack);
-  assert(err1.stack === 'Exception: foo');
+  assert(err1.stack !== 'Exception: foo');
 
   const err2 = ensure('foo', () => Error('bar'));
   assert(err2.stack);
-  assert(err2.stack === 'Error: bar');
+  assert(err2.stack !== 'Error: bar');
 });
 test(`capture: doesn't capture existing errors by default`, () => {
   const err = ensure(Error('foo'));
