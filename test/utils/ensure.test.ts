@@ -26,26 +26,33 @@ describe(`core`, () => {
 });
 
 describe(`create`, () => {
-  describe(`allow option`, () => {
-    test(`only allows strings by default`, () => {
-      expect(ensure(10)).toMatchInlineSnapshot(`[Error]`);
-      expect(ensure(10, null)).toMatchInlineSnapshot(`[Error]`);
-      expect(ensure(10, null, null)).toMatchInlineSnapshot(`[Error]`);
-      expect(ensure(() => null)).toMatchInlineSnapshot(`[Error]`);
-      expect(ensure(true)).toMatchInlineSnapshot(`[Error]`);
-      expect(ensure('foo')).toMatchInlineSnapshot(`[Error: foo]`);
-    });
-    test(`succeeds`, () => {
-      expect(ensure(10, { allow: ['number'] })).toMatchInlineSnapshot(
-        `[Error: 10]`
-      );
-      expect(ensure(10, { allow: ['number'] }, null)).toMatchInlineSnapshot(
-        `[Error: 10]`
-      );
-      expect(ensure('Foo', { allow: ['number'] })).toMatchInlineSnapshot(
-        `[Error]`
-      );
-    });
+  test(`stringifies input for message when not an Error`, () => {
+    const fn = function foo(): void {
+      return undefined;
+    };
+    const obj = {
+      get foo() {
+        throw Error();
+      }
+    };
+
+    expect(ensure('foo')).toMatchInlineSnapshot(`[Error: foo]`);
+    expect(ensure(undefined)).toMatchInlineSnapshot(`[Error]`);
+    expect(ensure(null)).toMatchInlineSnapshot(`[Error: null]`);
+    expect(ensure(true)).toMatchInlineSnapshot(`[Error: true]`);
+    expect(ensure(false)).toMatchInlineSnapshot(`[Error: false]`);
+    expect(ensure(10)).toMatchInlineSnapshot(`[Error: 10]`);
+    expect(ensure(10n)).toMatchInlineSnapshot(`[Error: 10]`);
+    expect(ensure(Symbol('foo'))).toMatchInlineSnapshot(`[Error: Symbol(foo)]`);
+    expect(ensure([1, 'foo', false])).toMatchInlineSnapshot(
+      `[Error: [1,"foo",false]]`
+    );
+    expect(ensure({ foo: 1 })).toMatchInlineSnapshot(`[Error: {"foo":1}]`);
+    expect(ensure(() => undefined)).toMatchInlineSnapshot(`[Error: function]`);
+    expect(ensure(class {})).toMatchInlineSnapshot(`[Error: function]`);
+    expect(ensure(fn)).toMatchInlineSnapshot(`[Error: function foo]`);
+    expect(ensure(class Foo {})).toMatchInlineSnapshot(`[Error: function Foo]`);
+    expect(ensure(obj)).toMatchInlineSnapshot(`[Error]`);
   });
   describe(`function`, () => {
     test(`gets called`, () => {
@@ -88,17 +95,6 @@ describe(`options`, () => {
       expect(mocks.normalize).toHaveBeenCalledTimes(1);
       expect(mocks.normalize).toHaveBeenCalledWith(error, options);
     });
-    test(`normalizes for create options`, () => {
-      const error = Error('Foo');
-      mocks.normalize.mockImplementation(() => error);
-
-      expect(ensure(Error(), { allow: ['string'] }, { normalize: true })).toBe(
-        error
-      );
-      expect(ensure('Foo', { allow: ['string'] }, { normalize: true })).toBe(
-        error
-      );
-    });
     test(`normalizes for create function`, () => {
       const error = Error('Foo');
       mocks.normalize.mockImplementation(() => error);
@@ -110,12 +106,6 @@ describe(`options`, () => {
       const error = Error('Foo');
       mocks.normalize.mockImplementation(() => error);
 
-      expect(
-        ensure(Error(), { allow: ['string'] }, { normalize: false })
-      ).not.toBe(error);
-      expect(
-        ensure('Foo', { allow: ['string'] }, { normalize: false })
-      ).not.toBe(error);
       expect(ensure(Error(), () => Error(), { normalize: false })).not.toBe(
         error
       );
@@ -144,11 +134,6 @@ describe(`options`, () => {
         'stack',
         'Error: Foo'
       );
-    });
-    test(`captures for create options`, () => {
-      expect(
-        ensure('Foo', { allow: ['string'] }, { capture: true })
-      ).toHaveProperty('stack', 'Error: Foo');
     });
     test(`captures for create function`, () => {
       expect(ensure('Foo', () => Error(), { capture: true })).toHaveProperty(

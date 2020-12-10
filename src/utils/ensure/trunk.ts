@@ -1,39 +1,36 @@
-import { stringify } from './stringify';
 import { normalize } from '../normalize';
-import { EnsureCreateOptions, EnsureOptions } from './ensure';
-import { UnaryFn } from 'type-core';
+import { stringify } from './stringify';
+import { EnsureOptions } from './ensure';
+import { UnaryFn, TypeGuard } from 'type-core';
+import { capture } from '../capture';
 
 export function trunk(
   error: any,
-  create: Required<EnsureCreateOptions> | UnaryFn<any, Error>,
+  create: UnaryFn<any, Error> | null,
   options: Required<EnsureOptions>
 ): Error {
-  if (!(error instanceof options.Error)) {
-    if (typeof create === 'function') {
+  const isError = error instanceof options.Error;
+
+  if (!isError) {
+    if (TypeGuard.isFunction(create)) {
       error = create(error);
     } else {
-      let message =
-        error &&
-        typeof error === 'object' &&
-        Object.hasOwnProperty.call(error, 'message')
+      const message = stringify(
+        TypeGuard.isObject(error) &&
+          Object.hasOwnProperty.call(error, 'message')
           ? error.message
-          : error;
-
-      message = create.allow.includes(typeof message)
-        ? stringify(message)
-        : undefined;
-
+          : error
+      );
       error = new Error(message);
     }
-    if (error && options.capture && Error.captureStackTrace) {
-      Error.captureStackTrace(error, error.constructor);
-    }
+
+    if (error && options.capture) capture(error);
   }
 
   return options.normalize
     ? normalize(
         error,
-        typeof options.normalize === 'boolean' ? null : options.normalize
+        TypeGuard.isBoolean(options.normalize) ? null : options.normalize
       )
     : error;
 }

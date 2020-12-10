@@ -1,4 +1,4 @@
-import { Constructor, UnaryFn } from 'type-core';
+import { Constructor, UnaryFn, Empty } from 'type-core';
 import { NormalizeOptions } from '../normalize';
 import { trunk } from './trunk';
 
@@ -19,27 +19,17 @@ export interface EnsureOptions<E extends Error = Error> {
   Error?: Constructor<E>;
 }
 
-export interface EnsureCreateOptions {
-  /**
-   * Array of types to allow as error `message`, given successful stringification.
-   * Default: `['string']`.
-   */
-  allow?: string[];
-}
-
 /**
  * Will return `error` if it's an instance of `Error`; otherwise, it will instantiate and return one.
  */
 export function ensure<T, U extends Error = Error, E extends Error = Error>(
   error: T,
-  create?: EnsureCreateOptions | UnaryFn<T, U> | null,
-  options?: EnsureOptions<E> | null
+  create?: UnaryFn<T, U> | Empty,
+  options?: EnsureOptions<E> | Empty
 ): T extends E ? T : U {
   return trunk(
     error,
-    typeof create === 'function'
-      ? create
-      : Object.assign({ allow: ['string'] }, create),
+    create || null,
     Object.assign(
       {
         normalize: true,
