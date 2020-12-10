@@ -2,20 +2,14 @@
   "name": "errorish",
   "version": "0.5.0",
   "author": "Rafa Mel",
-  "description": "For those times you have an error-ish but what you really want is an Error",
+  "description": "When you have an error-ish but what you really want is an Error",
   "keywords": [
     "error",
     "ensure",
-    "valid",
-    "exception",
-    "throw",
-    "reject",
     "normalize",
-    "name",
-    "message",
-    "stack",
-    "fix",
-    "convert"
+    "capture",
+    "exception",
+    "stack"
   ],
   "engines": {
     "node": ">=12"

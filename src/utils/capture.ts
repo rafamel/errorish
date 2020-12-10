@@ -1,7 +1,8 @@
 import { TypeGuard } from 'type-core';
 
 /**
- * Runs `Error.captureStackTrace` if running in `V8` to clean up the error stack trace.
+ * Runs `Error.captureStackTrace` if running *V8*
+ * to clean up the error stack trace.
  */
 export function capture<T extends Error>(error: T): T {
   /* istanbul ignore next */

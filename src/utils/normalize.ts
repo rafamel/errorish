@@ -5,7 +5,8 @@ export interface NormalizeOptions {
    */
   message?: string;
   /**
-   * Error `name` to be used when normalizing errors that don't have one, if its constructor doesn't have one.
+   * Error `name` to be used when normalizing errors that don't have one,
+   * if their constructor doesn't have one.
    * Default: `'Error'`.
    */
   name?: string;
@@ -17,7 +18,8 @@ export interface NormalizeOptions {
 export type NormalError<T extends Error = Error> = T & Record<'stack', string>;
 
 /**
- * Normalizes an Error -it assumes an instance of Error is passed. It guarantees the error will have a `name`, `message`, and `stack` properties.
+ * Normalizes an error -it assumes an instance of `Error` is passed.
+ * Guarantees the error will have a `name`, `message`, and `stack` properties.
  */
 export function normalize<T extends Error>(
   error: T,

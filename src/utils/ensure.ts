@@ -5,24 +5,36 @@ import { Exception } from '../Exception';
 
 export interface EnsureOptions<E extends Error = Error> {
   /**
-   * Whether to normalize the error. Can be a `boolean` or an object with the normalization options -see `NormalizeOptions`.
+   * Whether to normalize the error. 
+   * A `boolean` or an object with normalization options -see `NormalizeOptions`.
    * Default: `true`.
    */
   normalize?: boolean | NormalizeOptions;
   /**
-   * Whether to use `Error.captureStackTrace` if running in `V8` to clean up the error stack trace when a new `Error` is created.
+   * Whether to use `Error.captureStackTrace` if running *V8*
+   * to clean up the error stack trace when a new error is created.
    * Default: `false`.
    */
   capture?: boolean;
   /**
-   * Error type objects will be ensured against; hence if an object is not an instance of `Error`, `ensure` will create a new instance.
+   * Error type objects will be ensured against;
+   * if an object is not an instance of `Error`, 
+   * `ensure` will call the function passed as a
+   * `create` argument or, otherwise, instantiate an `Exception`.
    */
   Error?: Constructor<E>;
 }
 
 /**
- * Will return `error` if it's an instance of `Error`;
- * otherwise, it will instantiate an `Exception` and return it.
+ * Will return `error` if an instance of `Error` is passed;
+ * otherwise, when lacking a `create` function,
+ * it will instantiate an `Exception` and return it.
+ * When a new `Exception` is created, `Exception.data`
+ * will be populated with `error`.
+ * 
+ * @param error a target object
+ * @param create an optional error returning function to run when `error` is not an instance of `Error`
+ * @param options 
  */
 export function ensure<T, U extends Error = Error, E extends Error = Error>(
   error: T,

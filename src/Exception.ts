@@ -1,9 +1,9 @@
 import { Empty, TypeGuard } from 'type-core';
 
 export declare namespace Exception {
-  /** A label for the Exceptions that could indicate its scope or origin */
+  /** An identifying label for exceptions to indicate their scope or origin */
   export type Label = string | null;
-  /** An Exception-like object */
+  /** An exception-like object */
   export interface Like<L extends Label = Label, D = any> {
     label: L;
     message: string;
@@ -16,10 +16,10 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
   extends Error
   implements Exception.Like<L, D> {
   /**
-   * Tests whether an item is an instance of the Exception class,
+   * Tests whether an item is an instance of the `Exception` class
    * or any class inheriting from it.
-   * When `item` is an `Exception`, optionally tests for said instance
-   * having a particular `label`.
+   * When `item` is an `Exception`, it will optionally
+   * test for the instance also having a specific `label`.
    */
   public static is<L extends Exception.Label = Exception.Label>(
     item: any,
@@ -30,7 +30,7 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
     return item.label === label;
   }
   /**
-   * Creates an exception from any Exception-like object.
+   * Creates an `Exception` from any exception-like object.
    * When `item` is an `Exception`, a new instance will not be created.
    */
   public static from<L extends Exception.Label, D>(
@@ -40,9 +40,17 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
       ? item
       : new Exception([item.label, item.message], item.error, item.data);
   }
+  /** An optional label that identifies the exception. */
   public label: L;
+  /** An optional data field. */
   public data: D;
+  /** A source error causing the exception or a reference to itself. */
   public error: Error;
+  /**
+   * @param notice a message string or an array containing a label and a message
+   * @param error an optional source or original error that caused the exception
+   * @param data an optional data field
+   */
   public constructor(
     notice: string | [L, string],
     error?: Error | Empty,
@@ -57,13 +65,18 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
     this.data = data as D;
     this.error = TypeGuard.isEmpty(error) ? this : error;
   }
-  /** Exception.name will have value "Exception" or "Exception [label]" instead of "Error" */
+  /**
+   * `Exception.name` will have value "Exception"
+   * or "Exception [label]" instead of "Error"
+   */
   public get name(): string {
     return TypeGuard.isEmpty(this.label)
       ? 'Exception'
       : `Exception [${this.label}]`;
   }
-  /** References the first `Exception` in the `Exception.source` chain. */
+  /**
+   * References the first `Exception` in the `Exception.error` chain.
+   */
   public root(): Exception {
     if (this.error === this) return this;
     if (this.error instanceof Exception) return this.error.root();

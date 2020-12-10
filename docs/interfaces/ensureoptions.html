@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -100,15 +98,18 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="error" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Error</h3>
-					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <a href="constructor.html" class="tsd-signature-type">Constructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Constructor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/097eb45/src/types/options.ts#L40">src/types/options.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/516d382/src/utils/ensure.ts#L25">src/utils/ensure.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Error type objects will be ensured against; hence if an object is not an instance of <code>Error</code>, <code>ensure</code> will create a new instance.</p>
+							<p>Error type objects will be ensured against;
+								if an object is not an instance of <code>Error</code>,
+								<code>ensure</code> will call the function passed as a
+							<code>create</code> argument or, otherwise, instantiate an <code>Exception</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -118,13 +119,14 @@
 					<div class="tsd-signature tsd-kind-icon">capture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/097eb45/src/types/options.ts#L36">src/types/options.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/516d382/src/utils/ensure.ts#L18">src/utils/ensure.ts:18</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Whether to use <code>Error.captureStackTrace</code> if running in <code>V8</code> to clean up the error stack trace when a new <code>Error</code> is created.
-							Default: <code>true</code>.</p>
+							<p>Whether to use <code>Error.captureStackTrace</code> if running <em>V8</em>
+								to clean up the error stack trace when a new error is created.
+							Default: <code>false</code>.</p>
 						</div>
 					</div>
 				</section>
@@ -134,12 +136,13 @@
 					<div class="tsd-signature tsd-kind-icon">normalize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="normalizeoptions.html" class="tsd-signature-type">NormalizeOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/097eb45/src/types/options.ts#L31">src/types/options.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/rafamel/errorish/blob/516d382/src/utils/ensure.ts#L12">src/utils/ensure.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Whether to normalize the error. Can be a <code>boolean</code> or an object with the normalization options -see <code>NormalizeOptions</code>.
+							<p>Whether to normalize the error.
+								A <code>boolean</code> or an object with normalization options -see <code>NormalizeOptions</code>.
 							Default: <code>true</code>.</p>
 						</div>
 					</div>
@@ -157,13 +160,7 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="../classes/errorish.html" class="tsd-kind-icon">Errorish</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="constructor.html" class="tsd-kind-icon">Constructor</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="ensurecreateoptions.html" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Options</a>
+						<a href="../classes/exception.html" class="tsd-kind-icon">Exception</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -187,28 +184,16 @@
 						<a href="normalizeoptions.html" class="tsd-kind-icon">Normalize<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../globals.html#ensurecreatefn" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Fn</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#errordata" class="tsd-kind-icon">Error<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#errorlabel" class="tsd-kind-icon">Error<wbr>Label</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="../globals.html#normalerror" class="tsd-kind-icon">Normal<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="../globals.html#capture" class="tsd-kind-icon">capture</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#ensure" class="tsd-kind-icon">ensure</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#normalize" class="tsd-kind-icon">normalize</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="../globals.html#rejects" class="tsd-kind-icon">rejects</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="../globals.html#throws" class="tsd-kind-icon">throws</a>
 					</li>
 				</ul>
 			</nav>

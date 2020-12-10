@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -81,151 +79,71 @@
 				</a>
 				<p>There are three main use cases for <em>Errorish</em>:</p>
 				<ul>
-					<li><a href="#normalizing-errors">You need to make sure an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties.</a></li>
-					<li><a href="#ensuring-any-is-an-error--otherwise-create-it">You need to make sure <em>any</em> object is actually an error, as expected.</a></li>
-					<li><a href="#errorish-class">You want to extend the <code>Error</code> class to store an identifying <code>label</code>, some <code>data</code> fields, and/or the <code>source</code> exception that caused your program to fail</a></li>
-				</ul>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
-				</a>
-				<p>These are all of <em>Errorish</em>&#39;s functions and classes -<a href="https://rafamel.github.io/errorish/globals.html">see docs:</a></p>
-				<ul>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#normalize"><code>normalize</code></a> ensures an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties -filling them if they&#39;re not defined.</li>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> ensures <code>any</code> is an <code>Error</code>, otherwise creating one -it can also have a normalization step, which is enabled by default.</li>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> returns a promise rejection with an error, having called <code>ensure</code> on it.</li>
-					<li><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> takes a function and returns its value if it doesn&#39;t throw; otherwise, it will call <code>ensure</code> on the thrown error and throw it.</li>
-					<li><a href="https://rafamel.github.io/errorish/classes/errorish.html"><code>Errorish</code></a> is a <em>class</em> with some conveniency methods relating to its <code>label</code>, <code>data</code>, and <code>source</code> fields.</li>
+					<li><a href="#normalize">You need to make sure an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties.</a></li>
+					<li><a href="#ensure">You need to make sure <em>any</em> object is actually an error, as expected.</a></li>
+					<li><a href="#exception">You want to extend the <code>Error</code> class to store an identifying <code>label</code>, a source <code>error</code>, and/or associated <code>data</code>.</a></li>
 				</ul>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<a href="#normalizing-errors" id="normalizing-errors" style="color: inherit; text-decoration: none;">
-					<h3>Normalizing errors</h3>
+				<p><a href="https://rafamel.github.io/errorish/globals.html">See complete documentation.</a></p>
+				<ul>
+					<li><a href="#exception"><code>Exception</code></a> is an <em>Error</em> extending class with additional <code>label</code>, <code>error</code> and <code>data</code> fields.</li>
+					<li><a href="#utils">Utils</a>:<ul>
+							<li><a href="#ensure"><code>ensure</code></a> ensures <code>any</code> is an <code>Error</code>, otherwise creating one -it can optionally include a normalization step, enabled by default.</li>
+							<li><a href="#normalize"><code>normalize</code></a> ensures an <code>Error</code> has a <code>message</code>, <code>name</code>, and <code>stack</code> properties -filling them if they&#39;re not defined.</li>
+							<li><a href="#capture"><code>capture</code></a> runs <code>Error.captureStackTrace</code> if running in <code>V8</code> to clean up the error stack trace.</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#exception" id="exception" style="color: inherit; text-decoration: none;">
+					<h3><code>Exception</code></h3>
 				</a>
-				<p>Normalization is performed by default by <a href="https://rafamel.github.io/errorish/globals.html#throws"><code>ensure</code>,</a> but it can also be run independently:</p>
+				<p><a href="https://rafamel.github.io/errorish/classes/exception.html">See documentation for <code>Exception</code>.</a></p>
+				<p><code>Exception</code> is an <em>Error</em> extending class that can store an identifying <code>label</code>, the source <code>error</code> that caused it and/or additional associated <code>data</code>. <a href="https://rafamel.github.io/errorish/classes/exception.html"><code>Exception</code> also comes with several static and instance methods.</a></p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Exception } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Source'</span>);
+  } <span class="hljs-keyword">catch</span>(err) {
+    <span class="hljs-comment">// throws with label</span>
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception([<span class="hljs-string">'label'</span>, <span class="hljs-string">'message'</span>], err, { <span class="hljs-attr">code</span>: <span class="hljs-number">401</span> });
+  }
+} <span class="hljs-keyword">catch</span>(err) {
+  <span class="hljs-comment">// throws without label</span>
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(err.message, err, { <span class="hljs-attr">code</span>: <span class="hljs-number">500</span> })
+}</code></pre>
+				<a href="#utils" id="utils" style="color: inherit; text-decoration: none;">
+					<h3>Utils</h3>
+				</a>
+				<a href="#ensure" id="ensure" style="color: inherit; text-decoration: none;">
+					<h4><code>ensure</code></h4>
+				</a>
+				<p><a href="https://rafamel.github.io/errorish/globals.html#ensure">See documentation for <code>ensure</code>.</a></p>
+				<p>Ensure will return its first argument if an instance of <code>Error</code> is passed as such, otherwise instantiating and returning an <code>Exception</code>.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+
+ensure(<span class="hljs-string">'foo'</span>); <span class="hljs-comment">// Error: foo</span>
+ensure(<span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>)); <span class="hljs-comment">// Error: foo</span>
+ensure({ <span class="hljs-attr">message</span>: <span class="hljs-string">'foo'</span> }); <span class="hljs-comment">// Error: foo</span></code></pre>
+				<a href="#normalize" id="normalize" style="color: inherit; text-decoration: none;">
+					<h4><code>normalize</code></h4>
+				</a>
+				<p><a href="https://rafamel.github.io/errorish/globals.html#normalize">See documentation for <code>normalize</code>.</a></p>
+				<p>Normalization fills an error&#39;s <code>message</code>, <code>name</code>, and <code>stack</code> property when empty. It&#39;s performed by default by <code>ensure</code>, but it can also be run independently.</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { normalize } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
 
 normalize(<span class="hljs-built_in">Error</span>()); <span class="hljs-comment">// Error: An error occurred</span>
 normalize(<span class="hljs-built_in">Error</span>(), { <span class="hljs-attr">message</span>: <span class="hljs-string">'Foo bar'</span> }); <span class="hljs-comment">// Error: Foo bar</span></code></pre>
-				<a href="#ensuring-emanyem-is-an-error--otherwise-create-it" id="ensuring-emanyem-is-an-error--otherwise-create-it" style="color: inherit; text-decoration: none;">
-					<h3>Ensuring <em>any</em> is an error -otherwise create it</h3>
+				<a href="#capture" id="capture" style="color: inherit; text-decoration: none;">
+					<h4><code>capture</code></h4>
 				</a>
-				<p>See <a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code>.</a></p>
-				<a href="#return-an-error-from-any-error-emishem" id="return-an-error-from-any-error-emishem" style="color: inherit; text-decoration: none;">
-					<h4>Return an error from any error-<em>ish</em></h4>
-				</a>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
+				<p><a href="https://rafamel.github.io/errorish/globals.html#capture">See documentation for <code>capture</code>.</a></p>
+				<p>Captures the stack trace on <em>Node</em> and <em>Chromium</em> browsers.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { capture } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
 
-ensure(<span class="hljs-built_in">Error</span>(<span class="hljs-string">'Foo bar'</span>)); <span class="hljs-comment">// Error: Foo bar</span>
-
-ensure(<span class="hljs-string">'Foo bar'</span>); <span class="hljs-comment">// Error: Foo bar</span>
-ensure({ <span class="hljs-attr">message</span>: <span class="hljs-string">'Foo bar'</span> }); <span class="hljs-comment">// Error: Foo bar</span>
-
-<span class="hljs-comment">// As this is a number, it will use the default message</span>
-ensure(<span class="hljs-number">10</span>); <span class="hljs-comment">// Error: An error occurred</span>
-
-<span class="hljs-comment">// We can also allow numbers -or any other type- to be stringified</span>
-ensure(<span class="hljs-number">10</span>, { <span class="hljs-attr">allow</span>: [<span class="hljs-string">'string'</span>, <span class="hljs-string">'number'</span>] }); <span class="hljs-comment">// Error: 10</span>
-
-<span class="hljs-comment">// Or otherwise, provide a creation function</span>
-ensure(<span class="hljs-number">10</span>, (err) =&gt; <span class="hljs-built_in">Error</span>(<span class="hljs-string">'10 is not an error'</span>)) <span class="hljs-comment">// Error: 10 is not an error</span></code></pre>
-				<a href="#throw-or-reject-from-an-error-emishem" id="throw-or-reject-from-an-error-emishem" style="color: inherit; text-decoration: none;">
-					<h4>Throw or reject from an error-<em>ish</em></h4>
-				</a>
-				<p><a href="https://rafamel.github.io/errorish/globals.html#throws"><code>throws</code></a> and <a href="https://rafamel.github.io/errorish/globals.html#rejects"><code>rejects</code></a> run <a href="https://rafamel.github.io/errorish/globals.html#ensure"><code>ensure</code></a> over your error-<em>ish</em> and throw or reject with it -these are just convenience functions over <code>ensure</code>:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { rejects, throws, ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
-
-<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">10</span>).catch(rejects) <span class="hljs-comment">// Reject&lt;Error: An error occurred&gt;</span>
-
-throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-number">10</span>; }); <span class="hljs-comment">// Throw&lt;Error: An error occurred&gt;</span>
-
-<span class="hljs-comment">// The above is equivalent to:</span>
-<span class="hljs-keyword">try</span> {
-  <span class="hljs-keyword">throw</span> <span class="hljs-number">10</span>;
-} <span class="hljs-keyword">catch</span>(err) {
-  <span class="hljs-keyword">throw</span> ensure(err);
-}
-
-<span class="hljs-comment">// it can also be passed an async function</span>
-throws(<span class="hljs-keyword">async</span> () =&gt; { <span class="hljs-keyword">throw</span> <span class="hljs-number">10</span>; }); <span class="hljs-comment">// Reject&lt;Error: An error occurred&gt;</span></code></pre>
-				<a href="#codeerrorishcode-class" id="codeerrorishcode-class" style="color: inherit; text-decoration: none;">
-					<h3><code>Errorish</code> class</h3>
-				</a>
-				<p>A <em>class</em> with some conveniency methods relating to its <code>label</code>, <code>data</code>, and <code>source</code> fields -see <a href="https://rafamel.github.io/errorish/classes/errorish.html"><code>Errorish</code>.</a>.</p>
-				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
-					<h4>Constructor</h4>
-				</a>
-				<p>The <code>Errorish</code> constructor takes in the optional arguments <code>message</code>, <code>label</code>, <code>data</code>, and <code>source</code>.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Errorish } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
-
-<span class="hljs-keyword">const</span> fn = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Source'</span>); };
-
-<span class="hljs-keyword">try</span> {
-  fn();
-} <span class="hljs-keyword">catch</span>(source) {
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Errorish(<span class="hljs-string">'Message'</span>, <span class="hljs-string">'label'</span>, { <span class="hljs-attr">code</span>: <span class="hljs-number">401</span> }, source);
-}</code></pre>
-				<a href="#static-methods" id="static-methods" style="color: inherit; text-decoration: none;">
-					<h4>Static methods</h4>
-				</a>
-				<a href="#codeerrorishiserror-error-label-string--null--arrayltstring--nullgt-booleancode" id="codeerrorishiserror-error-label-string--null--arrayltstring--nullgt-booleancode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.is(error: Error, label?: string | null | Array&lt;string | null&gt;): boolean</code></h5>
-				</a>
-				<p>Returns <code>true</code> if <code>error</code> is an instance of the class with label <code>label</code>, if passed.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Errorish } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
-
-<span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> Errorish();
-
-Errorish.is(error); <span class="hljs-comment">// true</span>
-Errorish.is(error, <span class="hljs-string">'Label'</span>); <span class="hljs-comment">// false</span></code></pre>
-				<a href="#codeerrorishrecasterror-error-create-error-errorish-gt-error-label-string--null--arrayltstring--nullgtcode" id="codeerrorishrecasterror-error-create-error-errorish-gt-error-label-string--null--arrayltstring--nullgtcode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.recast(error: Error, create: (error: Errorish) =&gt; Error, label?: string | null | Array&lt;string | null&gt;)</code></h5>
-				</a>
-				<p>Runs and returns the result of <code>fn</code> only when <code>error</code> is an instance of the class and, optionally, has a specific <code>label</code>.</p>
-				<a href="#codeerrorishraisefn--gt-any-create-error-errorish-gt-error-label-string--null--arrayltstring--nullgtcode" id="codeerrorishraisefn--gt-any-create-error-errorish-gt-error-label-string--null--arrayltstring--nullgtcode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.raise(fn: () =&gt; any, create: (error: Errorish) =&gt; Error, label?: string | null | Array&lt;string | null&gt;)</code></h5>
-				</a>
-				<p>Calls <code>recast</code> and throws its response if <code>fn</code> throws or rejects, otherwise returns or throws the same result or error as <code>fn</code>.</p>
-				<a href="#codeerrorishensureerror-any-create-error-any-gt-error-options-object-errorcode" id="codeerrorishensureerror-any-create-error-any-gt-error-options-object-errorcode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.ensure(error: any, create: (error: any) =&gt; Error, options: object): Error</code></h5>
-				</a>
-				<p>Same as <a href="#ensuring-any-is-an-error--otherwise-create-it"><code>ensure</code>,</a> though it will ensure against the <code>error</code> being an instance of <code>Errorish</code>.</p>
-				<a href="#codeerrorishrejectserror-any-create-error-any-gt-error-options-object-errorcode" id="codeerrorishrejectserror-any-create-error-any-gt-error-options-object-errorcode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.rejects(error: any, create: (error: any) =&gt; Error, options: object): Error</code></h5>
-				</a>
-				<p>Same as <a href="#ensuring-any-is-an-error--otherwise-create-it"><code>rejects</code>,</a> though it will ensure against the <code>error</code> being an instance of <code>Errorish</code>.</p>
-				<a href="#codeerrorishthrowserror--gt-any-create-error-any-gt-error-options-object-errorcode" id="codeerrorishthrowserror--gt-any-create-error-any-gt-error-options-object-errorcode" style="color: inherit; text-decoration: none;">
-					<h5><code>Errorish.throws(error: () =&gt; any, create: (error: any) =&gt; Error, options: object): Error</code></h5>
-				</a>
-				<p>Same as <a href="#ensuring-any-is-an-error--otherwise-create-it"><code>throws</code>,</a> though it will ensure against the <code>error</code> being an instance of <code>Errorish</code>.</p>
-				<a href="#instance-methods" id="instance-methods" style="color: inherit; text-decoration: none;">
-					<h4>Instance methods</h4>
-				</a>
-				<a href="#codeerrorishroot-errorishcode" id="codeerrorishroot-errorishcode" style="color: inherit; text-decoration: none;">
-					<h5><code>errorish.root(): Errorish</code></h5>
-				</a>
-				<p>References the first <code>Errorish</code> in the <code>Errorish.source</code> chain.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Errorish } <span class="hljs-keyword">from</span> <span class="hljs-string">'errorish'</span>;
-
-<span class="hljs-keyword">const</span> source = <span class="hljs-built_in">Error</span>();
-<span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> Errorish(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, source);
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> Errorish(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, a);
-<span class="hljs-keyword">const</span> c = <span class="hljs-keyword">new</span> Errorish(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, b);
-
-<span class="hljs-comment">// Will return `a`</span>
-c.root();</code></pre>
-				<a href="#codeerrorisherror-errorcode" id="codeerrorisherror-errorcode" style="color: inherit; text-decoration: none;">
-					<h5><code>errorish.error(): Error</code></h5>
-				</a>
-				<p>Returns <code>Errorish.source</code> if it is an <code>Error</code>, otherwise it returns itself.</p>
-				<a href="#codeerrorishreproducedata-object-errorishcode" id="codeerrorishreproducedata-object-errorishcode" style="color: inherit; text-decoration: none;">
-					<h5><code>errorish.reproduce(data?: object): Errorish</code></h5>
-				</a>
-				<p>Clones the instance and assigns it a new <code>data</code> field.</p>
-				<a href="#codeerrorishcapture-errorishcode" id="codeerrorishcapture-errorishcode" style="color: inherit; text-decoration: none;">
-					<h5><code>errorish.capture(): Errorish</code></h5>
-				</a>
-				<p>Runs <code>Error.captureStackTrace</code> if running in <code>V8</code> to clean up the error stack trace.</p>
+capture(<span class="hljs-built_in">Error</span>());</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -239,13 +157,7 @@ c.root();</code></pre>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="classes/errorish.html" class="tsd-kind-icon">Errorish</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="interfaces/constructor.html" class="tsd-kind-icon">Constructor</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ensurecreateoptions.html" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Options</a>
+						<a href="classes/exception.html" class="tsd-kind-icon">Exception</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/ensureoptions.html" class="tsd-kind-icon">Ensure<wbr>Options</a>
@@ -254,28 +166,16 @@ c.root();</code></pre>
 						<a href="interfaces/normalizeoptions.html" class="tsd-kind-icon">Normalize<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#ensurecreatefn" class="tsd-kind-icon">Ensure<wbr>Create<wbr>Fn</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#errordata" class="tsd-kind-icon">Error<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#errorlabel" class="tsd-kind-icon">Error<wbr>Label</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#normalerror" class="tsd-kind-icon">Normal<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#capture" class="tsd-kind-icon">capture</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#ensure" class="tsd-kind-icon">ensure</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#normalize" class="tsd-kind-icon">normalize</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#rejects" class="tsd-kind-icon">rejects</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#throws" class="tsd-kind-icon">throws</a>
 					</li>
 				</ul>
 			</nav>
