@@ -1,10 +1,11 @@
+import assert from 'assert';
 import { capture } from '~/utils/capture';
 
 test(`capture`, () => {
-  const error = new Error();
-  expect(error.stack).not.toBe('Error: ');
+  const err = new Error();
+  assert(err.stack !== 'Error: ');
 
-  const response = capture(error);
-  expect(error.stack).toBe('Error: ');
-  expect(response).toBe(error);
+  const response = capture(err);
+  assert(err.stack === 'Error: ');
+  assert(response === err);
 });

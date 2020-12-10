@@ -1,81 +1,80 @@
+import assert from 'assert';
 import { normalize } from '~/utils/normalize';
 
-describe(`name`, () => {
-  test(`keeps name if it exists`, () => {
-    const error: any = Error('Foo');
-    error.name = 'Bar';
-
-    expect(normalize(error)).toBe(error);
-    expect(error.name).toBe('Bar');
-  });
-  test(`sets default name`, () => {
-    const error: any = Error('Foo');
-    error.name = undefined;
-
-    expect(error.name).toBe(undefined);
-    expect(normalize(error)).toBe(error);
-    expect(error.name).toBe('Error');
-  });
-  test(`sets options name`, () => {
-    const error: any = Error('Foo');
-    error.name = undefined;
-
-    expect(error.name).toBe(undefined);
-    expect(normalize(error, { name: 'Bar' })).toBe(error);
-    expect(error.name).toBe('Bar');
-  });
+test(`returns input object`, () => {
+  const err = Error();
+  assert(normalize(err) === err);
 });
+test(`Error.name: keeps name if it exists`, () => {
+  const err: any = Error('Foo');
+  err.name = 'Bar';
 
-describe(`message`, () => {
-  test(`keeps message if it exists`, () => {
-    const error = Error('Foo');
-
-    expect(normalize(error)).toBe(error);
-    expect(error.message).toBe('Foo');
-  });
-  test(`sets default message`, () => {
-    const error = Error('');
-
-    expect(normalize(error)).toBe(error);
-    expect(error.message).toBe('An error occurred');
-
-    error.message = undefined as any;
-    expect(error.message).toBe(undefined);
-    expect(normalize(error)).toBe(error);
-    expect(error.message).toBe('An error occurred');
-  });
-  test(`sets options message`, () => {
-    const error = Error('');
-
-    expect(normalize(error, { message: 'Bar' })).toBe(error);
-    expect(error.message).toBe('Bar');
-
-    error.message = undefined as any;
-    expect(error.message).toBe(undefined);
-    expect(normalize(error, { message: 'Bar' })).toBe(error);
-    expect(error.message).toBe('Bar');
-  });
+  normalize(err, { name: 'Foo' });
+  assert(err.name === 'Bar');
 });
+test(`Error.name: sets name if it doesn't exist`, () => {
+  const err: any = Error('Foo');
+  err.name = undefined;
 
-describe(`stack`, () => {
-  test(`keeps stack if it exists`, () => {
-    const error = Error('Foo');
-    const stack = error.stack;
+  assert(err.name === undefined);
+  normalize(err);
+  assert(err.name === 'Error');
+});
+test(`Error.name: sets options.name if it doesn't exist`, () => {
+  const err: any = Error('Foo');
+  err.name = undefined;
 
-    expect(normalize(error)).toBe(error);
-    expect(error.stack).toBe(stack);
-  });
-  test(`sets if it doesn't exist`, () => {
-    const error = Error('Foo');
+  assert(err.name === undefined);
+  normalize(err, { name: 'Foo' });
+  assert(err.name === 'Foo');
+});
+test(`Error.message: keeps message if it exists`, () => {
+  const err = Error('foo');
+  normalize(err);
 
-    error.stack = '';
-    expect(error.stack).toBe('');
-    expect(normalize(error)).toBe(error);
-    expect(error.stack).toMatchInlineSnapshot(`"Error: Foo"`);
+  assert(err.message === 'foo');
+});
+test(`Error.message: sets message if it doesn't exist`, () => {
+  const err1 = Error('');
+  normalize(err1);
+  assert(err1.message === 'An error occurred');
 
-    error.stack = undefined;
-    expect(error.stack).toBe(undefined);
-    expect(normalize(error)).toBe(error);
-    expect(error.stack).toMatchInlineSnapshot(`"Error: Foo"`);
-  });
+  const err2 = Error('');
+  Object.assign(err2, { message: undefined });
+  assert(err2.message === undefined);
+  normalize(err2);
+  assert(err2.message === 'An error occurred');
+});
+test(`Error.message: sets options.message if it doesn't exist`, () => {
+  const err1 = Error('');
+  normalize(err1, { message: 'Foo' });
+  assert(err1.message === 'Foo');
+
+  const err2 = Error('');
+  Object.assign(err2, { message: undefined });
+  assert(err2.message === undefined);
+  normalize(err2, { message: 'Foo' });
+  assert(err2.message === 'Foo');
+});
+test(`Error.stack: keeps stack if it exists`, () => {
+  const err = Error('foo');
+  const stack = err.stack;
+
+  normalize(err);
+  assert(err.stack === stack);
+});
+test(`Error.stack: sets stack if it doesn't exist`, () => {
+  const err1 = Error('foo');
+  Object.assign(err1, { stack: '' });
+  assert(err1.stack === '');
+  normalize(err1);
+  assert(err1.stack);
+  assert(err1.stack === 'Error: foo');
+
+  const err2 = Error('foo');
+  Object.assign(err2, { stack: undefined });
+  assert(err2.stack === undefined);
+  normalize(err2);
+  assert(err2.stack);
+  assert(err2.stack === 'Error: foo');
 });
