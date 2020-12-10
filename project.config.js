@@ -55,11 +55,8 @@ module.exports = create({
     typedoc: {
       strategy: 'deep',
       configure: {
-        exclude: [
-          '**/__mocks__/**/*',
-          '**/ensure/trunk.ts',
-          '**/ensure/stringify.ts'
-        ]
+        excludeNotExported: true,
+        exclude: ['**/__mocks__/**/*']
       }
     }
   }
