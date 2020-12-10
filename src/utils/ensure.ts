@@ -1,6 +1,7 @@
 import { Constructor, UnaryFn, Empty, TypeGuard } from 'type-core';
 import { normalize, NormalizeOptions } from './normalize';
 import { capture } from './capture';
+import { Exception } from '../Exception';
 
 export interface EnsureOptions<E extends Error = Error> {
   /**
@@ -20,7 +21,8 @@ export interface EnsureOptions<E extends Error = Error> {
 }
 
 /**
- * Will return `error` if it's an instance of `Error`; otherwise, it will instantiate and return one.
+ * Will return `error` if it's an instance of `Error`;
+ * otherwise, it will instantiate an `Exception` and return it.
  */
 export function ensure<T, U extends Error = Error, E extends Error = Error>(
   error: T,
@@ -58,7 +60,7 @@ function trunk(
           ? error.message
           : error
       );
-      error = new Error(message);
+      error = new Exception(message, null, error);
     }
 
     if (error && options.capture) capture(error);

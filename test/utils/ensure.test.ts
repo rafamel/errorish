@@ -32,21 +32,21 @@ test(`creation: stringifies input when not an Error and uses it for the new Erro
   };
 
   const execute = (item: any): string => String(ensure(item));
-  assert(execute('foo') === 'Error: foo');
-  assert(execute(undefined) === 'Error');
-  assert(execute(null) === 'Error: null');
-  assert(execute(true) === 'Error: true');
-  assert(execute(false) === 'Error: false');
-  assert(execute(10) === 'Error: 10');
-  assert(execute(10n) === 'Error: 10');
-  assert(execute(Symbol('foo')) === 'Error: Symbol(foo)');
-  assert(execute([1, 'foo', false]) === 'Error: [1,"foo",false]');
-  assert(execute({ foo: 1 }) === 'Error: {"foo":1}');
-  assert(execute(() => undefined) === 'Error: function');
-  assert(execute(class {}) === 'Error: function');
-  assert(execute(fn) === 'Error: function foo');
-  assert(execute(class Foo {}) === 'Error: function Foo');
-  assert(execute(obj) === 'Error');
+  assert(execute('foo') === 'Exception: foo');
+  assert(execute(undefined) === 'Exception');
+  assert(execute(null) === 'Exception: null');
+  assert(execute(true) === 'Exception: true');
+  assert(execute(false) === 'Exception: false');
+  assert(execute(10) === 'Exception: 10');
+  assert(execute(10) === 'Exception: 10');
+  assert(execute(Symbol('foo')) === 'Exception: Symbol(foo)');
+  assert(execute([1, 'foo', false]) === 'Exception: [1,"foo",false]');
+  assert(execute({ foo: 1 }) === 'Exception: {"foo":1}');
+  assert(execute(() => undefined) === 'Exception: function');
+  assert(execute(class {}) === 'Exception: function');
+  assert(execute(fn) === 'Exception: function foo');
+  assert(execute(class Foo {}) === 'Exception: function Foo');
+  assert(execute(obj) === 'Exception');
 });
 test(`creation: stringifies input.message when present and uses it for the new Error message`, () => {
   const fn = function foo(): void {
@@ -59,21 +59,21 @@ test(`creation: stringifies input.message when present and uses it for the new E
   };
 
   const execute = (message: any): string => String(ensure({ message }));
-  assert(execute('foo') === 'Error: foo');
-  assert(execute(undefined) === 'Error');
-  assert(execute(null) === 'Error: null');
-  assert(execute(true) === 'Error: true');
-  assert(execute(false) === 'Error: false');
-  assert(execute(10) === 'Error: 10');
-  assert(execute(10n) === 'Error: 10');
-  assert(execute(Symbol('foo')) === 'Error: Symbol(foo)');
-  assert(execute([1, 'foo', false]) === 'Error: [1,"foo",false]');
-  assert(execute({ foo: 1 }) === 'Error: {"foo":1}');
-  assert(execute(() => undefined) === 'Error: function');
-  assert(execute(class {}) === 'Error: function');
-  assert(execute(fn) === 'Error: function foo');
-  assert(execute(class Foo {}) === 'Error: function Foo');
-  assert(execute(obj) === 'Error');
+  assert(execute('foo') === 'Exception: foo');
+  assert(execute(undefined) === 'Exception');
+  assert(execute(null) === 'Exception: null');
+  assert(execute(true) === 'Exception: true');
+  assert(execute(false) === 'Exception: false');
+  assert(execute(10) === 'Exception: 10');
+  assert(execute(10) === 'Exception: 10');
+  assert(execute(Symbol('foo')) === 'Exception: Symbol(foo)');
+  assert(execute([1, 'foo', false]) === 'Exception: [1,"foo",false]');
+  assert(execute({ foo: 1 }) === 'Exception: {"foo":1}');
+  assert(execute(() => undefined) === 'Exception: function');
+  assert(execute(class {}) === 'Exception: function');
+  assert(execute(fn) === 'Exception: function foo');
+  assert(execute(class Foo {}) === 'Exception: function Foo');
+  assert(execute(obj) === 'Exception');
 });
 test(`creation: returns create function response when input is not an Error`, () => {
   const err = Error();
@@ -98,7 +98,7 @@ test(`creation: succeeds for options.Error`, () => {
   const child = new ErrorChild('bar');
 
   assert(ensure(err, null, { Error: ErrorChild }) !== err);
-  assert(String(ensure(err, null, { Error: ErrorChild })) === 'Error: foo');
+  assert(String(ensure(err, null, { Error: ErrorChild })) === 'Exception: foo');
   assert(ensure(err, () => child, { Error: ErrorChild }) === child);
   assert(ensure(child, null, { Error: ErrorChild }) === child);
   assert(ensure(child, () => err, { Error: ErrorChild }) === child);
@@ -144,7 +144,7 @@ test(`normalization: normalizes for create function`, () => {
 test(`capture: captures new errors by default`, () => {
   const err1 = ensure('foo');
   assert(err1.stack);
-  assert(err1.stack === 'Error: foo');
+  assert(err1.stack === 'Exception: foo');
 
   const err2 = ensure('foo', () => Error('bar'));
   assert(err2.stack);
@@ -154,12 +154,12 @@ test(`capture: doesn't capture existing errors by default`, () => {
   const err = ensure(Error('foo'));
 
   assert(err.stack);
-  assert(err.stack !== 'Error: foo');
+  assert(err.stack !== 'Exception: foo');
 });
 test(`capture: captures new errors when options.capture is true`, () => {
   const err1 = ensure('foo', null, { capture: true });
   assert(err1.stack);
-  assert(err1.stack === 'Error: foo');
+  assert(err1.stack === 'Exception: foo');
 
   const err2 = ensure('foo', () => Error('bar'), { capture: true });
   assert(err2.stack);
@@ -169,12 +169,12 @@ test(`capture: doesn't capture existing errors when options.capture is true`, ()
   const err = ensure(Error('foo'), null, { capture: true });
 
   assert(err.stack);
-  assert(err.stack !== 'Error: foo');
+  assert(err.stack !== 'Exception: foo');
 });
 test(`capture: doesn't capture new errors when options.capture is false`, () => {
   const err1 = ensure('foo', null, { capture: false });
   assert(err1.stack);
-  assert(err1.stack !== 'Error: foo');
+  assert(err1.stack !== 'Exception: foo');
 
   const err2 = ensure('foo', () => Error('bar'), { capture: false });
   assert(err2.stack);
@@ -184,5 +184,5 @@ test(`capture: doesn't capture existing errors when options.capture is false`, (
   const err = ensure(Error('foo'), null, { capture: false });
 
   assert(err.stack);
-  assert(err.stack !== 'Error: foo');
+  assert(err.stack !== 'Exception: foo');
 });
