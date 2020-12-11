@@ -1,3 +1,46 @@
+# [1.0.0](https://github.com/rafamel/errorish/compare/v0.5.0...v1.0.0) (2020-12-11)
+
+
+### Bug Fixes
+
+* **deps:** updates dependencies ([9905c58](https://github.com/rafamel/errorish/commit/9905c58a4979df48219823a3b5308bbe2eb7962c))
+
+
+### Code Refactoring
+
+* **utils:** removes rejects and throws ([6c9dc85](https://github.com/rafamel/errorish/commit/6c9dc853d85ec2a56314d77fd45a402919643c92))
+
+
+### Features
+
+* **utils:** ensure creates an Exception by default ([0559541](https://github.com/rafamel/errorish/commit/0559541cc51bb93aea892b5738e35558613e774b))
+* adds Exception class ([e5ba311](https://github.com/rafamel/errorish/commit/e5ba311984a1e0233711b66e88bea48259780fb6))
+* **utils:** adds capture ([55d5e70](https://github.com/rafamel/errorish/commit/55d5e703b8637f5822cdbc195be6d04cb0807dbd))
+
+
+### improvement
+
+* **utils:** ensure doesn't capture new errors by default ([9f78375](https://github.com/rafamel/errorish/commit/9f7837529697a9bbdb04f9da48323a3551f75161))
+* **utils:** ensure no longer takes an EnsureCreateOptions object as a second argument ([295da27](https://github.com/rafamel/errorish/commit/295da279365290d119d4e36b66b30729c1d69eea))
+
+
+### BREAKING CHANGES
+
+* **utils:** The ensure function used to capture the stack trace of new errors created within
+it, even when not explicitly passed an option to. The latest implementation doesn't capture the
+stack trace of newly created errors by default.
+* **utils:** When not provided with a `create` function as an argument, `ensure` will create and
+return an Exception instead of a plain Error when its first argument is not an error. This Exception
+instance will have its data `field` populated with the element passed `ensure` as an *error*.
+* **utils:** `ensure` used to take an EnsureCreateOptions object as a second argument allowing
+to specify the input types that, when not an error, would be casted into a string for the new Error
+to have as message. The new implementation casts all non Error input types into a string to use as a
+message. Otherwise, passing an Error creating function as a second argument remains possible.
+* **utils:** The utility functions rejects and throws have been removed from the library as they didn't add any significant value over ensure -they acted as minimal wrappers.
+* Errorish has been replaced by the Exception class. The change is not merely of name, as the api surface has been vastly reduced. Please review the most current documentation.
+
+
+
 # [0.5.0](https://github.com/rafamel/errorish/compare/v0.4.0...v0.5.0) (2019-12-23)
 
 
