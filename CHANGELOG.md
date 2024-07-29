@@ -1,3 +1,22 @@
+
+
+# [2.0.0](https://github.com/rafamel/errorish/compare/v1.0.0...v2.0.0) (2024-07-29)
+
+
+### Bug Fixes
+
+* update dependencies ([1487cb7](https://github.com/rafamel/errorish/commit/1487cb7ecc636a98770cb996d9eccad7e134ba8d))
+
+
+### chore
+
+* update setup ([e2e8147](https://github.com/rafamel/errorish/commit/e2e8147a4f3615d5117bc140dfa033438264d3e8))
+
+
+### BREAKING CHANGES
+
+* this is now a pure ESM package; requires node >= 22
+
 # [1.0.0](https://github.com/rafamel/errorish/compare/v0.5.0...v1.0.0) (2020-12-11)
 
 
@@ -165,6 +184,3 @@ thrown by that function, otherwise returning its value.
 * adds throws ([d8cef9e](https://github.com/rafamel/errorish/commit/d8cef9e))
 * **throws,rejects:** evaluates options.case when property exists; improves typings ([5cb7d9c](https://github.com/rafamel/errorish/commit/5cb7d9c))
 * **types:** adds ICoreOptions ([84d4529](https://github.com/rafamel/errorish/commit/84d4529))
-
-
-

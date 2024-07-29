@@ -1,7 +1,7 @@
 {
   "name": "errorish",
   "description": "When you have an error-ish but what you really want is an Error",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "rafamel",
   "license": "MIT",
   "private": false,
