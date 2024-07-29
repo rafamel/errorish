@@ -1,12 +1,8 @@
 # Errorish
 
 [![Version](https://img.shields.io/npm/v/errorish.svg)](https://www.npmjs.com/package/errorish)
-[![Build Status](https://img.shields.io/travis/rafamel/errorish/master.svg)](https://travis-ci.org/rafamel/errorish)
-[![Coverage](https://img.shields.io/coveralls/rafamel/errorish/master.svg)](https://coveralls.io/github/rafamel/errorish)
-[![Dependencies](https://img.shields.io/david/rafamel/errorish.svg)](https://david-dm.org/rafamel/errorish)
-[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/errorish.svg)](https://snyk.io/test/npm/errorish)
-[![License](https://img.shields.io/github/license/rafamel/errorish.svg)](https://github.com/rafamel/errorish/blob/master/LICENSE)
 [![Types](https://img.shields.io/npm/types/errorish.svg)](https://www.npmjs.com/package/errorish)
+[![License](https://img.shields.io/github/license/rafamel/errorish.svg)](https://github.com/rafamel/errorish/blob/master/LICENSE)
 
 > When you have an error-ish but what you really want is an Error.
 
@@ -24,7 +20,7 @@ There are three main use cases for *Errorish*:
 
 ## Usage
 
-[See complete documentation.](https://rafamel.github.io/errorish/globals.html)
+[See complete documentation.](https://rafamel.github.io/errorish/modules.html)
 
 * [`Exception`](#exception) is an *Error* extending class with additional `label`, `error` and `data` fields.
 * [Utils](#utils):
@@ -34,21 +30,21 @@ There are three main use cases for *Errorish*:
 
 ### `Exception`
 
-[See documentation for `Exception`.](https://rafamel.github.io/errorish/classes/exception.html)
+[See documentation for `Exception`.](https://rafamel.github.io/errorish/classes/Exception-1.html)
 
-`Exception` is an *Error* extending class that can store an identifying `label`, the source `error` that caused it and/or additional associated `data`. [`Exception` also comes with several static and instance methods.](https://rafamel.github.io/errorish/classes/exception.html)
+`Exception` is an *Error* extending class that can store an identifying `label`, the source `error` that caused it and/or additional associated `data`. [`Exception` also comes with several static and instance methods.](https://rafamel.github.io/errorish/classes/Exception-1.html)
 
 ```javascript
 import { Exception } from 'errorish';
 
 try {
   try {
-    throw Error('Source');
-  } catch(err) {
+    throw new Error('Source');
+  } catch (err) {
     // throws with label
     throw new Exception(['label', 'message'], err, { code: 401 });
   }
-} catch(err) {
+} catch (err) {
   // throws without label
   throw new Exception(err.message, err, { code: 500 })
 }
@@ -58,7 +54,7 @@ try {
 
 #### `ensure`
 
-[See documentation for `ensure`.](https://rafamel.github.io/errorish/globals.html#ensure)
+[See documentation for `ensure`.](https://rafamel.github.io/errorish/functions/ensure.html)
 
 Ensure will return its first argument if an instance of `Error` is passed as such, otherwise instantiating and returning an `Exception`.
 
@@ -66,31 +62,31 @@ Ensure will return its first argument if an instance of `Error` is passed as suc
 import { ensure } from 'errorish';
 
 ensure('foo'); // Error: foo
-ensure(Error('foo')); // Error: foo
+ensure(new Error('foo')); // Error: foo
 ensure({ message: 'foo' }); // Error: foo
 ```
 
 #### `normalize`
 
-[See documentation for `normalize`.](https://rafamel.github.io/errorish/globals.html#normalize)
+[See documentation for `normalize`.](https://rafamel.github.io/errorish/functions/normalize.html)
 
 Normalization fills an error's `message`, `name`, and `stack` property when empty. It's performed by default by `ensure`, but it can also be run independently.
 
 ```javascript
 import { normalize } from 'errorish';
 
-normalize(Error()); // Error: An error occurred
-normalize(Error(), { message: 'Foo bar' }); // Error: Foo bar
+normalize(new Error()); // Error: An error occurred
+normalize(new Error(), { message: 'Foo bar' }); // Error: Foo bar
 ```
 
 #### `capture`
 
-[See documentation for `capture`.](https://rafamel.github.io/errorish/globals.html#capture)
+[See documentation for `capture`.](https://rafamel.github.io/errorish/functions/capture.html)
 
 Captures the stack trace on *Node* and *Chromium* browsers.
 
 ```javascript
 import { capture } from 'errorish';
 
-capture(Error());
+capture(new Error());
 ```

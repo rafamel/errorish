@@ -1,4 +1,4 @@
-import { Empty, TypeGuard } from 'type-core';
+import { type Empty, TypeGuard } from 'type-core';
 
 export declare namespace Exception {
   /** An identifying label for exceptions to indicate their scope or origin */
@@ -14,7 +14,8 @@ export declare namespace Exception {
 
 export class Exception<L extends Exception.Label = Exception.Label, D = any>
   extends Error
-  implements Exception.Like<L, D> {
+  implements Exception.Like<L, D>
+{
   /**
    * Tests whether an item is an instance of the `Exception` class
    * or any class inheriting from it.

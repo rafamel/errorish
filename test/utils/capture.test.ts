@@ -1,5 +1,6 @@
-import assert from 'assert';
-import { capture } from '~/utils/capture';
+import { assert, test } from 'vitest';
+
+import { capture } from '../../src/utils/capture';
 
 test(`capture`, () => {
   const err = new Error();

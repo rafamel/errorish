@@ -1,11 +1,17 @@
-import { Constructor, UnaryFn, Empty, TypeGuard } from 'type-core';
-import { normalize, NormalizeOptions } from './normalize';
-import { capture } from './capture';
+import {
+  type Constructor,
+  type Empty,
+  TypeGuard,
+  type UnaryFn
+} from 'type-core';
+
 import { Exception } from '../Exception';
+import { capture } from './capture';
+import { type NormalizeOptions, normalize } from './normalize';
 
 export interface EnsureOptions<E extends Error = Error> {
   /**
-   * Whether to normalize the error. 
+   * Whether to normalize the error.
    * A `boolean` or an object with normalization options -see `NormalizeOptions`.
    * Default: `true`.
    */
@@ -18,7 +24,7 @@ export interface EnsureOptions<E extends Error = Error> {
   capture?: boolean;
   /**
    * Error type objects will be ensured against;
-   * if an object is not an instance of `Error`, 
+   * if an object is not an instance of `Error`,
    * `ensure` will call the function passed as a
    * `create` argument or, otherwise, instantiate an `Exception`.
    */
@@ -31,10 +37,10 @@ export interface EnsureOptions<E extends Error = Error> {
  * it will instantiate an `Exception` and return it.
  * When a new `Exception` is created, `Exception.data`
  * will be populated with `error`.
- * 
+ *
  * @param error a target object
  * @param create an optional error returning function to run when `error` is not an instance of `Error`
- * @param options 
+ * @param options
  */
 export function ensure<T, U extends Error = Error, E extends Error = Error>(
   error: T,
@@ -44,14 +50,7 @@ export function ensure<T, U extends Error = Error, E extends Error = Error>(
   return trunk(
     error,
     create || null,
-    Object.assign(
-      {
-        normalize: true,
-        capture: false,
-        Error: Error
-      },
-      options
-    )
+    Object.assign({ normalize: true, capture: false, Error }, options)
   ) as T extends E ? T : U;
 }
 

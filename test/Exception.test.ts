@@ -1,9 +1,10 @@
-import assert from 'assert';
-import { Exception } from '~/Exception';
+import { assert, describe, test } from 'vitest';
+
+import { Exception } from '../src/Exception';
 
 describe(`static`, () => {
   test(`Exception.is returns false for Error`, () => {
-    assert(!Exception.is(Error()));
+    assert(!Exception.is(new Error()));
   });
   test(`Exception.is returns true for Exception`, () => {
     assert(Exception.is(new Exception('foo')));
@@ -39,7 +40,7 @@ describe(`static`, () => {
     assert(err1.stack);
     assert(err1.stack.split('\n')[0] === 'Exception [Foo]: bar');
 
-    const error = Error('foo');
+    const error = new Error('foo');
     const err2 = Exception.from({
       label: null,
       message: 'bar',
@@ -78,7 +79,7 @@ describe(`instance`, () => {
     assert(err2.stack);
     assert(err2.stack.split('\n')[0] === 'Exception [Foo]: bar');
 
-    const error = Error();
+    const error = new Error();
     const err3 = new Exception([null, 'bar'], error);
 
     assert(err3 instanceof Error);
@@ -104,7 +105,7 @@ describe(`instance`, () => {
     assert(Exception.prototype.name === 'Exception');
   });
   test(`Exception.prototype.root returns first exception in chain`, () => {
-    const error = Error('Root');
+    const error = new Error('Root');
     const err1 = new Exception('Err1', error);
     const err2 = new Exception('Err2', err1);
     const err3 = new Exception('Err3', err2);

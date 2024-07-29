@@ -1,8 +1,13 @@
 {
   "name": "errorish",
-  "version": "1.0.0",
-  "author": "Rafa Mel",
   "description": "When you have an error-ish but what you really want is an Error",
+  "version": "1.0.0",
+  "author": "rafamel",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "error",
     "ensure",
@@ -11,86 +16,58 @@
     "exception",
     "stack"
   ],
+  "type": "module",
+  "types": "./build/index.d.ts",
+  "exports": "./build/index.js",
+  "files": [
+    "build/"
+  ],
   "engines": {
-    "node": ">=12"
+    "node": ">=22"
   },
-  "main": "pkg/dist/index.js",
-  "types": "pkg/dist/index.d.ts",
   "scripts": {
-    "commit": "kpo commit --",
-    "semantic": "kpo semantic --",
-    "fix": "kpo fix --",
-    "fix:scripts": "kpo fix:scripts --",
-    "lint": "kpo lint --",
-    "lint:md": "kpo lint:md --",
-    "lint:scripts": "kpo lint:scripts --",
-    "clean": "kpo clean --",
-    "clean:build": "kpo clean:build --",
-    "clean:modules": "kpo clean:modules --",
-    "prepublishOnly": "kpo prepublishOnly --",
-    "preversion": "kpo preversion --",
-    "version": "kpo version --",
-    "build": "kpo build --",
-    "build:transpile": "kpo build:transpile --",
-    "build:types": "kpo build:types --",
-    "fix:code": "kpo fix:code --",
-    "lint:code": "kpo lint:code --",
-    "lint:types": "kpo lint:types --",
-    "test": "kpo test --",
-    "verify": "kpo verify --",
-    "validate": "kpo validate --",
-    "docs": "kpo docs --",
-    "build:pack": "kpo build:pack --",
-    "build:static": "kpo build:static --",
-    "release": "kpo release --",
+    "start": "kpo start --",
     "watch": "kpo watch --",
-    "watch:test": "kpo watch:test --"
+    "build": "kpo build --",
+    "tarball": "kpo tarball --",
+    "docs": "kpo docs --",
+    "lint": "kpo lint --",
+    "fix": "kpo fix --",
+    "test": "kpo test --",
+    "commit": "kpo commit --",
+    "release": "kpo release --",
+    "distribute": "kpo distribute --",
+    "validate": "kpo validate --",
+    "version": "kpo version --"
   },
-  "license": "MIT",
   "homepage": "https://github.com/rafamel/errorish",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rafamel/errorish"
+    "url": "git+https://github.com/rafamel/errorish.git"
   },
   "bugs": {
     "url": "https://github.com/rafamel/errorish/issues"
   },
   "devDependencies": {
-    "@pika/pack": "^0.4.0",
-    "@pika/plugin-build-web": "^0.9.2",
-    "@pika/plugin-standard-pkg": "^0.9.2",
-    "@riseup/library": "^0.5.0",
-    "@riseup/tooling": "^0.5.0",
-    "@types/jest": "^25.2.3",
-    "@zerollup/ts-transform-paths": "^1.7.18",
-    "coveralls": "^3.1.0",
-    "husky": "^4.3.4",
-    "kpo": "^0.11.1",
-    "onchange": "^7.1.0",
-    "typescript": "^3.9.7"
+    "@antfu/eslint-config": "^2.21.1",
+    "@riseup/universal": "^0.22.0",
+    "@riseup/utils": "^0.22.0",
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.0.4",
+    "eslint": "^8.57.0",
+    "glob": "^11.0.0",
+    "kpo": "^0.28.0",
+    "prettier": "^3.3.3",
+    "tsc-alias": "^1.8.10",
+    "tsup": "^8.2.3",
+    "tsx": "^4.16.2",
+    "typedoc": "^0.26.5",
+    "typedoc-plugin-missing-exports": "^3.0.0",
+    "typescript": "^5.5.4",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^2.0.4"
   },
   "dependencies": {
     "type-core": "^0.6.0"
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg",
-        {
-          "exclude": [
-            "__mocks__/**/*",
-            "__tests__/**/*"
-          ]
-        }
-      ],
-      [
-        "@pika/plugin-build-web"
-      ]
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "kpo verify"
-    }
   }
 }

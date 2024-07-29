@@ -1,16 +1,16 @@
-import assert from 'assert';
-import { ensure } from '~/utils/ensure';
-import { normalize } from '~/utils/normalize';
+import { type Mock, assert, beforeEach, expect, test, vi } from 'vitest';
 
-jest.mock('~/utils/normalize');
-const mocks = { normalize: normalize as jest.Mock<any, any> };
+import { ensure } from '../../src/utils/ensure';
+import { normalize } from '../../src/utils/normalize';
+
+vi.mock('../../src/utils/normalize');
+const mocks = { normalize: normalize as Mock };
 beforeEach(() => {
-  mocks.normalize.mockClear();
   mocks.normalize.mockImplementation((err) => err);
 });
 
 test(`creation: returns input when an Error`, () => {
-  const err = Error('An error');
+  const err = new Error('An error');
 
   assert(ensure(err) === err);
   assert(ensure(err, null) === err);
@@ -27,7 +27,7 @@ test(`creation: stringifies input when not an Error and uses it for the new Erro
   };
   const obj = {
     get foo() {
-      throw Error();
+      throw new Error();
     }
   };
 
@@ -54,7 +54,7 @@ test(`creation: stringifies input.message when present and uses it for the new E
   };
   const obj = {
     get foo() {
-      throw Error();
+      throw new Error();
     }
   };
 
@@ -76,7 +76,7 @@ test(`creation: stringifies input.message when present and uses it for the new E
   assert(execute(obj) === 'Exception');
 });
 test(`creation: returns create function response when input is not an Error`, () => {
-  const err = Error();
+  const err = new Error();
   const args: any[] = [];
   const fn = (...arr: any[]): Error => {
     args.push(arr);
@@ -88,13 +88,13 @@ test(`creation: returns create function response when input is not an Error`, ()
 });
 test(`creation: create function doesn't get called when input is an error`, () => {
   let times = 0;
-  const err = Error();
+  const err = new Error();
   assert(ensure(err, (): any => times++) === err);
   assert(times === 0);
 });
 test(`creation: succeeds for options.Error`, () => {
   class ErrorChild extends Error {}
-  const err = Error(`foo`);
+  const err = new Error(`foo`);
   const child = new ErrorChild('bar');
 
   assert(ensure(err, null, { Error: ErrorChild }) !== err);
@@ -104,28 +104,28 @@ test(`creation: succeeds for options.Error`, () => {
   assert(ensure(child, () => err, { Error: ErrorChild }) === child);
 });
 test(`normalization: normalizes by default`, () => {
-  const err = Error('foo');
+  const err = new Error('foo');
   mocks.normalize.mockImplementation(() => err);
 
-  assert(ensure(Error()) === err);
+  assert(ensure(new Error()) === err);
   assert(ensure('foo') === err);
 });
 test(`normalization: normalizes when options.normalize is true`, () => {
-  const err = Error('foo');
+  const err = new Error('foo');
   mocks.normalize.mockImplementation(() => err);
 
-  assert(ensure(Error(), null, { normalize: true }) === err);
+  assert(ensure(new Error(), null, { normalize: true }) === err);
   assert(ensure('foo', null, { normalize: true }) === err);
 });
 test(`normalization: doesn't normalize when options.normalize is false`, () => {
-  const err = Error('foo');
+  const err = new Error('foo');
   mocks.normalize.mockImplementation(() => err);
 
-  assert(ensure(Error(), () => Error(), { normalize: false }) !== err);
-  expect(ensure('foo', () => Error(), { normalize: false }) !== err);
+  assert(ensure(new Error(), () => new Error(), { normalize: false }) !== err);
+  expect(ensure('foo', () => new Error(), { normalize: false }) !== err);
 });
 test(`normalization: normalizes with options`, () => {
-  const err = Error('foo');
+  const err = new Error('foo');
   mocks.normalize.mockImplementation(() => err);
 
   const options = { message: 'foo bar baz' };
@@ -135,23 +135,23 @@ test(`normalization: normalizes with options`, () => {
   assert.deepStrictEqual(mocks.normalize.mock.calls[0][1], options);
 });
 test(`normalization: normalizes for create function`, () => {
-  const err = Error('foo');
+  const err = new Error('foo');
   mocks.normalize.mockImplementation(() => err);
 
-  assert(ensure(Error(), () => Error(), { normalize: true }) === err);
-  assert(ensure('foo', () => Error(), { normalize: true }) === err);
+  assert(ensure(new Error(), () => new Error(), { normalize: true }) === err);
+  assert(ensure('foo', () => new Error(), { normalize: true }) === err);
 });
 test(`capture: doesn't capture new errors by default`, () => {
   const err1 = ensure('foo');
   assert(err1.stack);
   assert(err1.stack !== 'Exception: foo');
 
-  const err2 = ensure('foo', () => Error('bar'));
+  const err2 = ensure('foo', () => new Error('bar'));
   assert(err2.stack);
   assert(err2.stack !== 'Error: bar');
 });
 test(`capture: doesn't capture existing errors by default`, () => {
-  const err = ensure(Error('foo'));
+  const err = ensure(new Error('foo'));
 
   assert(err.stack);
   assert(err.stack !== 'Exception: foo');
@@ -161,12 +161,12 @@ test(`capture: captures new errors when options.capture is true`, () => {
   assert(err1.stack);
   assert(err1.stack === 'Exception: foo');
 
-  const err2 = ensure('foo', () => Error('bar'), { capture: true });
+  const err2 = ensure('foo', () => new Error('bar'), { capture: true });
   assert(err2.stack);
   assert(err2.stack === 'Error: bar');
 });
 test(`capture: doesn't capture existing errors when options.capture is true`, () => {
-  const err = ensure(Error('foo'), null, { capture: true });
+  const err = ensure(new Error('foo'), null, { capture: true });
 
   assert(err.stack);
   assert(err.stack !== 'Exception: foo');
@@ -176,12 +176,12 @@ test(`capture: doesn't capture new errors when options.capture is false`, () => 
   assert(err1.stack);
   assert(err1.stack !== 'Exception: foo');
 
-  const err2 = ensure('foo', () => Error('bar'), { capture: false });
+  const err2 = ensure('foo', () => new Error('bar'), { capture: false });
   assert(err2.stack);
   assert(err2.stack !== 'Error: bar');
 });
 test(`capture: doesn't capture existing errors when options.capture is false`, () => {
-  const err = ensure(Error('foo'), null, { capture: false });
+  const err = ensure(new Error('foo'), null, { capture: false });
 
   assert(err.stack);
   assert(err.stack !== 'Exception: foo');
