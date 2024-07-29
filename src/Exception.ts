@@ -1,4 +1,4 @@
-import { type Empty, TypeGuard } from 'type-core';
+import { TypeGuard } from 'type-core';
 
 export declare namespace Exception {
   /** An identifying label for exceptions to indicate their scope or origin */
@@ -54,7 +54,7 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
    */
   public constructor(
     notice: string | [L, string],
-    error?: Error | Empty,
+    error?: Error | null,
     data?: D
   ) {
     const [label, message] = TypeGuard.isArray(notice)
@@ -64,14 +64,14 @@ export class Exception<L extends Exception.Label = Exception.Label, D = any>
     super(message);
     this.label = label as L;
     this.data = data as D;
-    this.error = TypeGuard.isEmpty(error) ? this : error;
+    this.error = TypeGuard.isNullLike(error) ? this : error;
   }
   /**
    * `Exception.name` will have value "Exception"
    * or "Exception [label]" instead of "Error"
    */
   public get name(): string {
-    return TypeGuard.isEmpty(this.label)
+    return TypeGuard.isNullLike(this.label)
       ? 'Exception'
       : `Exception [${this.label}]`;
   }

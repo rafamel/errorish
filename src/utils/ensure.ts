@@ -1,9 +1,4 @@
-import {
-  type Constructor,
-  type Empty,
-  TypeGuard,
-  type UnaryFn
-} from 'type-core';
+import { type Callable, type Constructor, TypeGuard } from 'type-core';
 
 import { Exception } from '../Exception';
 import { capture } from './capture';
@@ -44,8 +39,8 @@ export interface EnsureOptions<E extends Error = Error> {
  */
 export function ensure<T, U extends Error = Error, E extends Error = Error>(
   error: T,
-  create?: UnaryFn<T, U> | Empty,
-  options?: EnsureOptions<E> | Empty
+  create?: Callable<T, U> | null,
+  options?: EnsureOptions<E> | null
 ): T extends E ? T : U {
   return trunk(
     error,
@@ -56,7 +51,7 @@ export function ensure<T, U extends Error = Error, E extends Error = Error>(
 
 function trunk(
   error: any,
-  create: UnaryFn<any, Error> | null,
+  create: Callable<any, Error> | null,
   options: Required<EnsureOptions>
 ): Error {
   const isError = error instanceof options.Error;

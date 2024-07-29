@@ -68,6 +68,6 @@
     "vitest": "^2.0.4"
   },
   "dependencies": {
-    "type-core": "^0.6.0"
+    "type-core": "^0.15.0"
   }
 }
